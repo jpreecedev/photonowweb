@@ -1,26 +1,38 @@
-const paths = require('./config/paths');
+const paths = require('./config/paths')
 
 module.exports = {
-    extends: ['wiremore', 'wiremore/react', 'wiremore/typescript'],
-    globals: {
-        __BROWSER__: true,
-        __SERVER__: true,
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  globals: {
+    __BROWSER__: true,
+    __SERVER__: true
+  },
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+      modules: true
+    }
+  },
+  env: {
+    browser: true,
+    node: true,
+    commonjs: true,
+    mocha: true
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: paths.resolveModules,
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      }
     },
-    settings: {
-        'import/resolver': {
-            node: {
-                paths: paths.resolveModules,
-                extensions: ['.js', '.jsx', '.ts', '.tsx'],
-            },
-        },
-        react: {
-            version: 'detect',
-        },
-    },
-    rules: {
-        'import/no-unassigned-import': 0,
-        'import/no-named-as-default-member': 0,
-        'prettier/prettier': 'error',
-    },
-    // overrides: [{ files: ['*.tsx'], rules: { 'import/named': 0 } }],
-};
+    react: {
+      version: 'detect'
+    }
+  },
+  rules: {
+    'import/no-unassigned-import': 0,
+    'import/no-named-as-default-member': 0
+  },
+  overrides: [{ files: ['*.tsx'], rules: { 'import/named': 0 } }]
+}

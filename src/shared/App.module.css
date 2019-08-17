@@ -4,22 +4,22 @@
 /* @import-normalize; */
 
 :global(body) {
-    font-family: 'Titillium Web', Arial, Sans-Serif;
-    font-size: var(--font-size-base);
+  font-family: 'Titillium Web', Arial, Sans-Serif;
+  font-size: var(--font-size-base);
 }
 
 .wrapper {
-    margin: auto;
-    max-width: 100%;
-    width: 768px;
+  margin: auto;
+  max-width: 100%;
+  width: 768px;
 
-    h1 {
-        font-size: var(--font-size-h1);
-    }
+  h1 {
+    font-size: var(--font-size-h1);
+  }
 }
 
 .reactLogo {
-    height: 48px;
-    vertical-align: middle;
-    width: 48px;
+  height: 48px;
+  vertical-align: middle;
+  width: 48px;
 }
