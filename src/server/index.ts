@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import paths from '../../config/paths'
 import errorHandler from './middleware/errorHandler'
 import serverRenderer from './middleware/serverRenderer'
+import { connectToDatabase } from './database/connection'
 
 require('dotenv').config()
 
@@ -37,6 +38,9 @@ app.use(
 app.use(serverRenderer())
 
 app.use(errorHandler)
+;(async () => {
+  await connectToDatabase()
+})()
 
 app.listen(process.env.PORT || 8500, () => {
   //eslint-disable-next-line

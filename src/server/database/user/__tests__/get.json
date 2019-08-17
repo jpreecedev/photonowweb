@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": "8a8b8f06cd5",
+      "provider": "providerName",
+      "businessName": "test business name",
+      "address": "nn11nn",
+      "lat": -222.222,
+      "lng": 111.333,
+      "profile": {
+        "emailAddress": "test@test.com",
+        "firstName": "Test",
+        "lastName": "Testington",
+        "picture": { "url": "/path/to/file.png", "height": 50, "width": 50 }
+      }
+    }
+  ]
+}

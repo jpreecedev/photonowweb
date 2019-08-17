@@ -1,0 +1,16 @@
+{
+  "payments": [
+    {
+      "_id": "1dfd2340562b148fdfa1be91",
+      "customerId": "1cfc2370562b178fdfa1be91",
+      "photographerId": "1dfd2370562d198fdfa1de91",
+      "moments": ["http://some_full_moment_path"],
+      "amount": 600,
+      "paid": true,
+      "status": "succeeded",
+      "receipt": "http://some_url/",
+      "stripeCharge": {},
+      "purchased": ""
+    }
+  ]
+}

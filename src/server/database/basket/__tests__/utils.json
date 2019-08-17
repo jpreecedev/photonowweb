@@ -1,0 +1,31 @@
+{
+  "moments": [
+    {
+      "_id": "1aaa9190969b198adaa1ba91",
+      "photographerId": "3ded5390565b398edea3be93",
+      "filename": "filename2",
+      "resizedLocation": "resizedLocation2",
+      "mimeType": "mimeType2"
+    },
+    {
+      "_id": "1bbb9190969b198bdbb1bb91",
+      "photographerId": "3ded5390565b398edea3be93",
+      "filename": "filename2",
+      "resizedLocation": "resizedLocation2",
+      "mimeType": "mimeType2"
+    }
+  ],
+  "stores": [
+    {
+      "photographerId": "3ded5390565b398edea3be93",
+      "singleImagePrice": 100
+    }
+  ],
+  "orders": [
+    {
+      "_id": "2ded2380562b288edea2be92",
+      "customerId": "1cfc2370562b178fdfa1be91",
+      "moments": ["1aaa9190969b198adaa1ba91", "1bbb9190969b198bdbb1bb91"]
+    }
+  ]
+}
