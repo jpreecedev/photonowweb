@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+import { Schema } from 'mongoose'
 
 const UserSchema = new Schema({
   id: String,
@@ -23,4 +23,4 @@ const UserSchema = new Schema({
   stripeCustomerId: String
 })
 
-module.exports = { UserSchema }
+export { UserSchema }

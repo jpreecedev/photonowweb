@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+import { Schema } from 'mongoose'
 
 const MomentSchema = new Schema({
   photographerId: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -13,4 +13,4 @@ const MomentSchema = new Schema({
   amount: Number // Calculated field and almost certainly wrong!
 })
 
-module.exports = { MomentSchema }
+export { MomentSchema }

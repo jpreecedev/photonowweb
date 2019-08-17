@@ -1,5 +1,5 @@
-const { Order } = require('../schema')
-const { getOrder } = require('./utils')
+import { Order } from '../schema'
+import { getOrder } from './utils'
 
 async function getOrderForCustomer(customerId) {
   return await getOrder({ customerId })
@@ -27,4 +27,4 @@ async function orderHasMomentAdded(customerId, orderId, momentId) {
   )
 }
 
-module.exports = { getOrderForCustomer, userHasOrder, orderHasMomentAdded }
+export { getOrderForCustomer, userHasOrder, orderHasMomentAdded }

@@ -1,13 +1,13 @@
-const { getOrderForCustomer, userHasOrder, orderHasMomentAdded } = require('./get')
-const { deleteOrderItem } = require('./delete')
-const { createOrder } = require('./create')
-const { addMomentToOrder } = require('./update')
+import { getOrderForCustomer, userHasOrder, orderHasMomentAdded } from './get';
+import { deleteOrderItem } from './delete';
+import { createOrder } from './create';
+import { addMomentToOrder } from './update';
 
-module.exports = {
+export default {
   getOrderForCustomer,
   userHasOrder,
   deleteOrderItem,
   createOrder,
   addMomentToOrder,
   orderHasMomentAdded
-}
+};

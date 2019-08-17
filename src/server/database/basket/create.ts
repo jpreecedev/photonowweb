@@ -1,4 +1,4 @@
-const { Order } = require('../schema')
+import { Order } from '../schema'
 
 async function createOrder(customerId) {
   return await new Order({
@@ -8,4 +8,4 @@ async function createOrder(customerId) {
   }).save()
 }
 
-module.exports = { createOrder }
+export { createOrder }

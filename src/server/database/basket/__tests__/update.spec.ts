@@ -1,9 +1,7 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { Types } = require('mongoose')
-const { sanitizeData } = require('../../test-utils')
-
-const { addMomentToOrder } = require('../../basket')
+import { initDb, drop } from 'mongo-unit';
+import { Types } from 'mongoose';
+import { sanitizeData } from '../../test-utils';
+import { addMomentToOrder } from '../../basket';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -17,7 +15,7 @@ describe('Update order tests', () => {
     await drop()
   })
 
-  it('should add a moment to an existing order', async () => {
+  test('should add a moment to an existing order', async () => {
     const customerId = Types.ObjectId('1cfc2370562b178fdfa1be91')
     const orderId = Types.ObjectId('9aaa2370562a178fdfa1ae99')
     const momentId = Types.ObjectId('4bbb2370562b178fdfa1be44')
@@ -30,7 +28,7 @@ describe('Update order tests', () => {
     expect(order.moments[0]._id.toString()).to.equal(momentId.toString())
   })
 
-  it('should not add a moment to an existing order when customer id is wrong', async () => {
+  test('should not add a moment to an existing order when customer id is wrong', async () => {
     const customerId = Types.ObjectId('2cfc2370562b178fdfa1be91')
     const orderId = Types.ObjectId('9aaa2370562a178fdfa1ae99')
     const momentId = Types.ObjectId('4bbb2370562b178fdfa1be44')

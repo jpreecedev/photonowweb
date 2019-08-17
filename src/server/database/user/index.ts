@@ -1,13 +1,7 @@
-const addOrUpdate = require('./addOrUpdate')
-const { getUser } = require('./get')
-const getProfile = require('./getProfile')
-const updateProfile = require('./updateProfile')
-const addOrUpdateStripeCustomer = require('./addOrUpdateStripeCustomer')
+import { addOrUpdate } from './addOrUpdate'
+import { getUser } from './get'
+import { getProfile } from './getProfile'
+import { updateProfile } from './updateProfile'
+import { addOrUpdateStripeCustomer } from './addOrUpdateStripeCustomer'
 
-module.exports = {
-  addOrUpdate,
-  getUser,
-  getProfile,
-  updateProfile,
-  addOrUpdateStripeCustomer
-}
+export { addOrUpdate, getUser, getProfile, updateProfile, addOrUpdateStripeCustomer }

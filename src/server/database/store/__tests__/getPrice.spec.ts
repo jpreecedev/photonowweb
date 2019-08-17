@@ -1,9 +1,7 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { sanitizeData } = require('../../test-utils')
-
-const { getPrice } = require('../../store')
-const { Types } = require('mongoose')
+import { initDb, drop } from 'mongo-unit';
+import { sanitizeData } from '../../test-utils';
+import { getPrice } from '../../store';
+import { Types } from 'mongoose';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -18,7 +16,7 @@ describe('Get Price tests', () => {
     await drop()
   })
 
-  it('should get the price for an existing store', async () => {
+  test('should get the price for an existing store', async () => {
     const photographerId = Types.ObjectId('9bfc2370562b178fdfa1be99')
 
     const singleImagePrice = await getPrice(photographerId)

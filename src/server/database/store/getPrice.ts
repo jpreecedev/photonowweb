@@ -1,6 +1,5 @@
-const { Store } = require('../schema')
-
-const { DEFAULT_MOMENT_PRICE } = require('../../config')
+import { Store } from '../schema'
+import { DEFAULT_MOMENT_PRICE } from '../../config'
 
 async function getPrice(photographerId) {
   const result = await Store.findOne({ photographerId }).exec()
@@ -11,4 +10,4 @@ async function getPrice(photographerId) {
   return result.singleImagePrice
 }
 
-module.exports = getPrice
+export { getPrice }

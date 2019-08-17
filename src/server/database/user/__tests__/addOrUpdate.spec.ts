@@ -1,7 +1,5 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-
-const { addOrUpdate } = require('..')
+import { initDb, drop } from 'mongo-unit';
+import { addOrUpdate } from '..';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -16,7 +14,7 @@ describe('Add or update user tests', () => {
     await drop()
   })
 
-  it('should create a new user then update it', async () => {
+  test('should create a new user then update it', async () => {
     const user = {
       id: 'identityId',
       provider: 'providerName',

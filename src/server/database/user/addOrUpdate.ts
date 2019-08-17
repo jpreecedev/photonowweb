@@ -1,4 +1,4 @@
-const { User } = require('../schema')
+import { User } from '../schema'
 
 async function addOrUpdate(user) {
   const { ok } = await User.updateOne({ id: user.id }, user, {
@@ -14,4 +14,4 @@ async function addOrUpdate(user) {
   return result
 }
 
-module.exports = addOrUpdate
+export { addOrUpdate }

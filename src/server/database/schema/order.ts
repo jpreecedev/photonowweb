@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+import { Schema } from 'mongoose'
 
 const OrderSchema = new Schema({
   customerId: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -7,4 +7,4 @@ const OrderSchema = new Schema({
   closed: Boolean
 })
 
-module.exports = { OrderSchema }
+export { OrderSchema }

@@ -1,5 +1,3 @@
-const { create } = require('./create')
+import { create } from './create'
 
-module.exports = {
-  create
-}
+export { create }

@@ -1,7 +1,7 @@
-const { Moment } = require('../schema')
+import { Moment } from '../schema'
 
 async function create(moment) {
   return await new Moment(moment).save()
 }
 
-module.exports = { create }
+export { create }

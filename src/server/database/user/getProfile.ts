@@ -1,4 +1,4 @@
-const { User } = require('../schema')
+import { User } from '../schema'
 
 async function getProfile(id) {
   return await User.findOne({
@@ -8,4 +8,4 @@ async function getProfile(id) {
     .exec()
 }
 
-module.exports = getProfile
+export { getProfile }

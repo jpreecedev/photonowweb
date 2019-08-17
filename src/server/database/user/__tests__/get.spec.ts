@@ -1,7 +1,5 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-
-const { getUser } = require('../../user')
+import { initDb, drop } from 'mongo-unit';
+import { getUser } from '../../user';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -16,7 +14,7 @@ describe('Add or update user tests', () => {
     await drop()
   })
 
-  it('should get the specified user', async () => {
+  test('should get the specified user', async () => {
     const id = testData.users[0].id
     const user = {
       businessName: testData.users[0].businessName,

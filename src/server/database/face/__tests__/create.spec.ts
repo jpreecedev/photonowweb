@@ -1,9 +1,7 @@
-const { Types } = require('mongoose')
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-
-const { create } = require('..')
-const { sanitizeData } = require('../../test-utils')
+import { Types } from 'mongoose';
+import { initDb, drop } from 'mongo-unit';
+import { create } from '..';
+import { sanitizeData } from '../../test-utils';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -19,7 +17,7 @@ describe('Create face tests', () => {
     await drop()
   })
 
-  it('should create a new face', async () => {
+  test('should create a new face', async () => {
     const face = {
       customerId: Types.ObjectId('1cfc2370562b178fdfa1be91'),
       filename: 'TEST FILE NAME.jpg',

@@ -1,5 +1,5 @@
-const { Order } = require('../schema')
-const { getOrder } = require('./utils')
+import { Order } from '../schema'
+import { getOrder } from './utils'
 
 async function deleteOrderItem(orderId, customerId, momentId) {
   const order = await Order.findOne({
@@ -30,4 +30,4 @@ async function deleteOrderItem(orderId, customerId, momentId) {
   return undefined
 }
 
-module.exports = { deleteOrderItem }
+export { deleteOrderItem }

@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+import { Schema } from 'mongoose'
 
 const FaceSchema = new Schema({
   customerId: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -10,4 +10,4 @@ const FaceSchema = new Schema({
   originalEtag: String
 })
 
-module.exports = { FaceSchema }
+export { FaceSchema }

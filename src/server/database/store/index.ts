@@ -1,7 +1,4 @@
-const addOrUpdate = require('./addOrUpdate')
-const getPrice = require('./getPrice')
+import { addOrUpdate } from './addOrUpdate'
+import { getPrice } from './getPrice'
 
-module.exports = {
-  addOrUpdate,
-  getPrice
-}
+export { addOrUpdate, getPrice }

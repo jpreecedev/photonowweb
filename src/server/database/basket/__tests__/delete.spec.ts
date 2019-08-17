@@ -1,9 +1,7 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { Types } = require('mongoose')
-const { sanitizeData } = require('../../test-utils')
-
-const { deleteOrderItem } = require('..')
+import { initDb, drop } from 'mongo-unit';
+import { Types } from 'mongoose';
+import { sanitizeData } from '../../test-utils';
+import { deleteOrderItem } from '..';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -17,7 +15,7 @@ describe('Delete order tests', () => {
     await drop()
   })
 
-  it('should not delete the order item when the user does not have the order', async () => {
+  test('should not delete the order item when the user does not have the order', async () => {
     const orderId = Types.ObjectId('9ddd2370562d178fdfd1de99')
     const customerId = Types.ObjectId('5dfc2370562b178fdfa1be91')
     const momentId = Types.ObjectId('4ccc2370562b178fdfa1be11')
@@ -27,7 +25,7 @@ describe('Delete order tests', () => {
     expect(result).to.be.undefined
   })
 
-  it('should delete the order item', async () => {
+  test('should delete the order item', async () => {
     const orderId = Types.ObjectId('9ddd2370562d178fdfd1de99')
     const customerId = Types.ObjectId('5cfc2370562b178fdfa1be91')
     const momentId = Types.ObjectId('4ccc2370562b178fdfa1be11')

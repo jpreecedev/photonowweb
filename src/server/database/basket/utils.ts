@@ -1,5 +1,5 @@
-const { Order, Store } = require('../schema')
-const { DEFAULT_MOMENT_PRICE } = require('../../config')
+import { Order, Store } from '../schema'
+import { DEFAULT_MOMENT_PRICE } from '../../config'
 
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
@@ -35,4 +35,4 @@ async function getOrder(query) {
   return order
 }
 
-module.exports = { getOrder }
+export { getOrder }

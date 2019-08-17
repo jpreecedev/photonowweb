@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+import { Schema } from 'mongoose'
 
 const PaymentSchema = new Schema({
   customerId: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -12,4 +12,4 @@ const PaymentSchema = new Schema({
   purchased: Date
 })
 
-module.exports = { PaymentSchema }
+export { PaymentSchema }

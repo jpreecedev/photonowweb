@@ -1,9 +1,7 @@
-const { Types } = require('mongoose')
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { sanitizeData } = require('../../test-utils')
-
-const { create } = require('..')
+import { Types } from 'mongoose';
+import { initDb, drop } from 'mongo-unit';
+import { sanitizeData } from '../../test-utils';
+import { create } from '..';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -17,7 +15,7 @@ describe('Create payment tests', () => {
     await drop()
   })
 
-  it('should create a payment', async () => {
+  test('should create a payment', async () => {
     const newPayment = {
       customerId: Types.ObjectId('1cfc2370562b178fdfa1be91'),
       photographerId: Types.ObjectId('1dfd2370562d198fdfa1de91'),

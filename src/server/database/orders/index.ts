@@ -1,6 +1,3 @@
-const { getOrder, getOrders } = require('./get')
+import { getOrder, getOrders } from './get'
 
-module.exports = {
-  getOrder,
-  getOrders
-}
+export { getOrder, getOrders }

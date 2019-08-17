@@ -1,9 +1,7 @@
-const { Types } = require('mongoose')
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { sanitizeData } = require('../../test-utils')
-
-const { getPayment } = require('..')
+import { Types } from 'mongoose';
+import { initDb, drop } from 'mongo-unit';
+import { sanitizeData } from '../../test-utils';
+import { getPayment } from '..';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -18,7 +16,7 @@ describe('Get payment tests', () => {
     await drop()
   })
 
-  it('should get the payment', async () => {
+  test('should get the payment', async () => {
     const paymentId = Types.ObjectId('1dfd2340562b148fdfa1be91')
 
     const payment = await getPayment(paymentId)

@@ -1,9 +1,7 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { Types } = require('mongoose')
-const { sanitizeData } = require('../../test-utils')
-
-const { getOrder } = require('../utils')
+import { initDb, drop } from 'mongo-unit';
+import { Types } from 'mongoose';
+import { sanitizeData } from '../../test-utils';
+import { getOrder } from '../utils';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -19,7 +17,7 @@ describe('Utils tests', () => {
     await drop()
   })
 
-  it('should get the order with appropriate supporting data', async () => {
+  test('should get the order with appropriate supporting data', async () => {
     const query = {
       customerId: Types.ObjectId('1cfc2370562b178fdfa1be91')
     }

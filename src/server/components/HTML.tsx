@@ -5,7 +5,6 @@ type Props = {
   children: any
   css: string[]
   scripts: string[]
-  state: string
 }
 
 const HTML = ({ children, css = [], scripts = [] }: Props) => {

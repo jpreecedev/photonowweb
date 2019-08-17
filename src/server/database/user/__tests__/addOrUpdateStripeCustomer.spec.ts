@@ -1,8 +1,6 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { Types } = require('mongoose')
-
-const { addOrUpdateStripeCustomer } = require('../../user')
+import { initDb, drop } from 'mongo-unit';
+import { Types } from 'mongoose';
+import { addOrUpdateStripeCustomer } from '../../user';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -17,7 +15,7 @@ describe('Stripe token tests', () => {
     await drop()
   })
 
-  it('should update the stripe token', async () => {
+  test('should update the stripe token', async () => {
     const id = Types.ObjectId(testData.users[0]._id)
     const stripeCustomerId = '123ABC'
 

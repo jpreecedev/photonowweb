@@ -1,4 +1,4 @@
-const { User } = require('../schema')
+import { User } from '../schema'
 
 async function addOrUpdateStripeCustomer(userId, stripeCustomerId) {
   const user = await User.findById(userId)
@@ -16,4 +16,4 @@ async function addOrUpdateStripeCustomer(userId, stripeCustomerId) {
   return user
 }
 
-module.exports = addOrUpdateStripeCustomer
+export { addOrUpdateStripeCustomer }

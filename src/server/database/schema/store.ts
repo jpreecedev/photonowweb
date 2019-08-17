@@ -1,8 +1,8 @@
-const { Schema } = require('mongoose')
+import { Schema } from 'mongoose'
 
 const StoreSchema = new Schema({
   photographerId: { type: Schema.Types.ObjectId, ref: 'User' },
   singleImagePrice: Number
 })
 
-module.exports = { StoreSchema }
+export { StoreSchema }

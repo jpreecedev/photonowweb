@@ -1,7 +1,4 @@
-const { create } = require('./create')
-const { getPayment } = require('./get')
+import { create } from './create'
+import { getPayment } from './get'
 
-module.exports = {
-  create,
-  getPayment
-}
+export { create, getPayment }

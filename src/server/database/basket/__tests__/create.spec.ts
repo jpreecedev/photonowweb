@@ -1,8 +1,6 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { Types } = require('mongoose')
-
-const { createOrder } = require('../create')
+import { initDb, drop } from 'mongo-unit';
+import { Types } from 'mongoose';
+import { createOrder } from '../create';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -17,7 +15,7 @@ describe('Create order tests', () => {
     await drop()
   })
 
-  it('should create an order', async () => {
+  test('should create an order', async () => {
     const customerId = Types.ObjectId('1cfc2370562b178fdfa1be91')
 
     const order = await createOrder(customerId)

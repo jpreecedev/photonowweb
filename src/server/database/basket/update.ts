@@ -1,5 +1,5 @@
-const { Order } = require('../schema')
-const { getOrder } = require('./utils')
+import { Order } from '../schema'
+import { getOrder } from './utils'
 
 async function addMomentToOrder(customerId, orderId, momentId) {
   const order = await Order.findOne({
@@ -30,4 +30,4 @@ async function addMomentToOrder(customerId, orderId, momentId) {
   return undefined
 }
 
-module.exports = { addMomentToOrder }
+export { addMomentToOrder }

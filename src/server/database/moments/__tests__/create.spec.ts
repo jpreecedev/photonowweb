@@ -1,7 +1,5 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-
-const { create } = require('..')
+import { initDb, drop } from 'mongo-unit';
+import { create } from '..';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -15,7 +13,7 @@ describe('Create moment tests', () => {
     await drop()
   })
 
-  it('should create a new moment', async () => {
+  test('should create a new moment', async () => {
     const newMoment = {
       filename: 'TEST FILE NAME.jpg',
       mimeType: 'application/test',

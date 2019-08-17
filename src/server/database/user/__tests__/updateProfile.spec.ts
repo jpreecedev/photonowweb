@@ -1,7 +1,5 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-
-const { updateProfile } = require('../../user')
+import { initDb, drop } from 'mongo-unit';
+import { updateProfile } from '../../user';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -16,7 +14,7 @@ describe('Update user profile tests', () => {
     await drop()
   })
 
-  it('should update the user profile', async () => {
+  test('should update the user profile', async () => {
     const id = testData.users[0].id
     const profile = {
       emailAddress: 'jazz@jazz.com',

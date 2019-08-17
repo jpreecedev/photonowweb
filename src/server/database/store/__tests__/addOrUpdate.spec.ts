@@ -1,8 +1,6 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-
-const { addOrUpdate } = require('..')
-const { Types } = require('mongoose')
+import { initDb, drop } from 'mongo-unit';
+import { addOrUpdate } from '..';
+import { Types } from 'mongoose';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -17,7 +15,7 @@ describe('Add or update store tests', () => {
     await drop()
   })
 
-  it('should create new store settings', async () => {
+  test('should create new store settings', async () => {
     const photographerId = Types.ObjectId('9bfc2370562b178fdfa1be99')
 
     const storeSettings = {

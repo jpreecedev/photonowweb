@@ -1,9 +1,7 @@
-const { expect } = require('chai')
-const { initDb, drop } = require('mongo-unit')
-const { Types } = require('mongoose')
-const { sanitizeData } = require('../../test-utils')
-
-const { getOrder, getOrders } = require('..')
+import { initDb, drop } from 'mongo-unit';
+import { Types } from 'mongoose';
+import { sanitizeData } from '../../test-utils';
+import { getOrder, getOrders } from '..';
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 
@@ -17,7 +15,7 @@ describe('Get order tests', () => {
     await drop()
   })
 
-  it('should get the order when order id is supplied', async () => {
+  test('should get the order when order id is supplied', async () => {
     const orderId = Types.ObjectId('9aaa2370562a178fdfa1ae99')
     const customerId = Types.ObjectId('1cfc2370562b178fdfa1be91')
 
@@ -27,7 +25,7 @@ describe('Get order tests', () => {
     expect(order._id.toString()).to.equal(orderId.toString())
   })
 
-  it('should get all the orders for the given customer', async () => {
+  test('should get all the orders for the given customer', async () => {
     const customerId = Types.ObjectId('5cfc2370562b178fdfa1be91')
 
     const orders = await getOrders(customerId)

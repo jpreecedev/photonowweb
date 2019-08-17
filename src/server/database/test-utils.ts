@@ -1,4 +1,4 @@
-const { Types } = require('mongoose')
+import { Types } from 'mongoose'
 
 function sanitizeData(testData) {
   if (testData.orders && testData.orders.length) {
@@ -33,4 +33,4 @@ function sanitizeData(testData) {
   return testData
 }
 
-module.exports = { sanitizeData }
+export { sanitizeData }

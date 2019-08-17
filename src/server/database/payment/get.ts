@@ -1,4 +1,4 @@
-const { Payment } = require('../schema')
+import { Payment } from '../schema'
 
 const defaultFields = ['orderId', 'customerId', 'receipt', 'amount', 'moments']
 
@@ -8,4 +8,4 @@ async function getPayment(id) {
     .exec()
 }
 
-module.exports = { getPayment }
+export { getPayment }
