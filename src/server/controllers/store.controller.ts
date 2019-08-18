@@ -1,5 +1,5 @@
-import { errors } from '../utils';
-import { addOrUpdate } from '../database/store';
+import { errors } from '../utils'
+import { addOrUpdate } from '../database/store'
 
 async function post(req, res) {
   try {
@@ -16,4 +16,4 @@ async function post(req, res) {
   }
 }
 
-export default { post };
+export default { post }

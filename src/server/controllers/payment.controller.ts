@@ -1,10 +1,10 @@
-import { errors } from '../utils';
-import { STRIPE_SECRET_KEY } from '../config';
-import { addOrUpdateStripeCustomer } from '../database/user';
-import { create } from '../database/payment';
-import { getOrder } from '../database/basket/utils';
-import stripeFactory from 'stripe';
-const stripe = stripeFactory(STRIPE_SECRET_KEY);
+import { errors } from '../utils'
+import { STRIPE_SECRET_KEY } from '../config'
+import { addOrUpdateStripeCustomer } from '../database/user'
+import { create } from '../database/payment'
+import { getOrder } from '../database/basket/utils'
+import stripeFactory from 'stripe'
+const stripe = stripeFactory(STRIPE_SECRET_KEY)
 
 async function findOrCreateStripeCustomer(user, tokenId) {
   if (user.stripeCustomerId) {
@@ -73,4 +73,4 @@ async function post(req, res) {
   }
 }
 
-export default { post };
+export default { post }

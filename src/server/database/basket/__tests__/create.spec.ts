@@ -1,6 +1,6 @@
-import { initDb, drop } from 'mongo-unit';
-import { Types } from 'mongoose';
-import { createOrder } from '../create';
+import { initDb, drop } from 'mongo-unit'
+import { Types } from 'mongoose'
+import { createOrder } from '../create'
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 

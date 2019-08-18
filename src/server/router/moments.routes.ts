@@ -1,7 +1,7 @@
-import express from 'express';
-import uuid from 'uuid/v4';
-import { MomentsController } from '../controllers';
-import { s3Upload, authorisation } from '../utils';
+import express from 'express'
+import uuid from 'uuid/v4'
+import { MomentsController } from '../controllers'
+import { s3Upload, authorisation } from '../utils'
 
 const router = express.Router()
 
@@ -16,4 +16,4 @@ router.post(
   MomentsController.post
 )
 
-export default router;
+export default router

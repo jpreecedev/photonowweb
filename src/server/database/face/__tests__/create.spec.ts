@@ -1,7 +1,7 @@
-import { Types } from 'mongoose';
-import { initDb, drop } from 'mongo-unit';
-import { create } from '..';
-import { sanitizeData } from '../../test-utils';
+import { Types } from 'mongoose'
+import { initDb, drop } from 'mongo-unit'
+import { create } from '..'
+import { sanitizeData } from '../../test-utils'
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 

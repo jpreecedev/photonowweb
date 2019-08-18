@@ -4,4 +4,4 @@ function handle(error) {
   console.error(error)
 }
 
-export default { handle };
+export default { handle }

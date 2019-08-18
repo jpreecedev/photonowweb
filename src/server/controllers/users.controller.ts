@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import { addOrUpdate, getProfile } from '../database/user';
-import { JWT_SECRET } from '../config';
-import { errors } from '../utils';
+import jwt from 'jsonwebtoken'
+import { addOrUpdate, getProfile } from '../database/user'
+import { JWT_SECRET } from '../config'
+import { errors } from '../utils'
 
 async function generateToken(req, res) {
   try {
@@ -87,4 +87,4 @@ async function get(req, res) {
   }
 }
 
-export default { generateToken, post, get };
+export default { generateToken, post, get }

@@ -1,5 +1,5 @@
-import { initDb, drop } from 'mongo-unit';
-import { create } from '..';
+import { initDb, drop } from 'mongo-unit'
+import { create } from '..'
 
 const testMongoUrl = process.env.DB_CONNECTION_STRING
 

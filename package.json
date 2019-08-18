@@ -12,6 +12,7 @@
     "lint": "concurrently \"npm run lint:js\" \"npm run lint:css\"",
     "lint:js": "eslint src/**/*.{ts,tsx} --fix",
     "lint:css": "stylelint src/**/*.css",
+    "lint:prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "start": "cross-env NODE_ENV=development node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom",
     "test:update": "npm run test --updateSnapshot",

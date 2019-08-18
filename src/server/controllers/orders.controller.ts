@@ -1,5 +1,5 @@
-import { errors } from '../utils';
-import { getOrder, getOrders } from '../database/orders';
+import { errors } from '../utils'
+import { getOrder, getOrders } from '../database/orders'
 
 async function get(req, res) {
   try {
@@ -20,4 +20,4 @@ async function get(req, res) {
   }
 }
 
-export default { get };
+export default { get }

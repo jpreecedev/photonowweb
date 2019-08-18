@@ -1,11 +1,11 @@
-import passport from 'passport';
-import passportJWT from 'passport-jwt';
+import passport from 'passport'
+import passportJWT from 'passport-jwt'
 
 const JWTStrategy = passportJWT.Strategy
 const ExtractJwt = passportJWT.ExtractJwt
 
-import { JWT_SECRET } from '../config';
-import { getUser } from '../database/user';
+import { JWT_SECRET } from '../config'
+import { getUser } from '../database/user'
 
 function authentication(app) {
   app.use(passport.initialize())
@@ -28,4 +28,4 @@ function authentication(app) {
   )
 }
 
-export default { authentication };
+export default { authentication }

@@ -1,5 +1,5 @@
-import { create } from '../database/face';
-import { errors } from '../utils';
+import { create } from '../database/face'
+import { errors } from '../utils'
 
 async function post(req, res) {
   try {
@@ -29,4 +29,4 @@ async function post(req, res) {
   }
 }
 
-export default { post };
+export default { post }
