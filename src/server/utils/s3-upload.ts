@@ -4,7 +4,7 @@ import multerS3 from 'multer-s3-transform'
 import sharp from 'sharp'
 import { join } from 'path'
 
-const watermark = join(__dirname, '../../assets/watermark.png')
+const watermark = join(__dirname, '../../../assets/watermark.png')
 
 const BUCKET = process.env.AWS_BUCKET
 

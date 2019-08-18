@@ -1,10 +1,7 @@
 @import '@csstools/normalize.css';
 @import './variables.css';
-@import url('https://fonts.googleapis.com/css?family=Lora:400,700|Titillium+Web:400,700');
-/* @import-normalize; */
 
 :global(body) {
-  font-family: 'Titillium Web', Arial, Sans-Serif;
   font-size: var(--font-size-base);
 }
 
@@ -16,10 +13,4 @@
   h1 {
     font-size: var(--font-size-h1);
   }
-}
-
-.reactLogo {
-  height: 48px;
-  vertical-align: middle;
-  width: 48px;
 }
