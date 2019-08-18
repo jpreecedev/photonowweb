@@ -1,13 +1,13 @@
-import { getOrderForCustomer, userHasOrder, orderHasMomentAdded } from './get';
-import { deleteOrderItem } from './delete';
-import { createOrder } from './create';
-import { addMomentToOrder } from './update';
+import { getOrderForCustomer, userHasOrder, orderHasMomentAdded } from './get'
+import { deleteOrderItem } from './delete'
+import { createOrder } from './create'
+import { addMomentToOrder } from './update'
 
-export default {
+export {
   getOrderForCustomer,
   userHasOrder,
   deleteOrderItem,
   createOrder,
   addMomentToOrder,
   orderHasMomentAdded
-};
+}

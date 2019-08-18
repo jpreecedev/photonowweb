@@ -9,7 +9,7 @@ const {
   STRIPE_SECRET_KEY
 } = process.env
 
-const config = {
+export {
   HOST,
   PORT,
   DB_CONNECTION_STRING,
@@ -19,5 +19,3 @@ const config = {
   DEFAULT_MOMENT_PRICE,
   STRIPE_SECRET_KEY
 }
-
-export default config

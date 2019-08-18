@@ -10,12 +10,11 @@ async function updateProfile(userId, profile) {
     }
   ).exec()
 
-  let result = null
   if (ok) {
-    result = await User.findOne({ id: userId }).exec()
+    return await User.findOne({ id: userId }).exec()
   }
 
-  return result
+  return null
 }
 
 export { updateProfile }

@@ -5,8 +5,9 @@ async function getOrderForCustomer(customerId) {
   return await getOrder({ customerId })
 }
 
-async function userHasOrder(customerId) {
+async function userHasOrder(customerId, orderId) {
   const result = await Order.findOne({
+    _id: orderId,
     customerId
   }).exec()
   return result !== undefined && result !== null

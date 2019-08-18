@@ -1,12 +1,11 @@
 import { model } from 'mongoose'
-import { UserSchema } from './user'
+import { User } from './user'
 import { MomentSchema } from './moment'
 import { FaceSchema } from './face'
 import { StoreSchema } from './store'
 import { OrderSchema } from './order'
 import { PaymentSchema } from './payment'
 
-const User = model('User', UserSchema)
 const Moment = model('Moment', MomentSchema)
 const Store = model('Store', StoreSchema)
 const Order = model('Order', OrderSchema)
