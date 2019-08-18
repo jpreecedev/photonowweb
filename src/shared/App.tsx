@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import css from './App.module.css'
 
 import { SignIn } from './components/SignIn'
+import { SignUp } from './components/SignUp'
 import { Checkout } from './components/Checkout'
 
 const App = () => {
@@ -25,8 +26,10 @@ const App = () => {
         ]}
       />
       <>
-        <Route path="/" exact component={SignIn} />
+        <Route path="/" exact component={SignUp} />
         <Route path="/checkout/" component={Checkout} />
+        <Route path="/sign-up/" component={SignUp} />
+        <Route path="/sign-in" exact component={SignIn} />
       </>
     </div>
   )
