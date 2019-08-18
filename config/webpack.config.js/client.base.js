@@ -92,16 +92,5 @@ module.exports = {
       }
     }
   },
-  stats: {
-    cached: false,
-    cachedAssets: false,
-    chunks: false,
-    chunkModules: false,
-    colors: false,
-    hash: false,
-    modules: false,
-    reasons: false,
-    timings: false,
-    version: false
-  }
+  stats: 'errors-only'
 }
