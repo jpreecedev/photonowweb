@@ -1,8 +1,10 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import { Route } from 'react-router-dom'
 import css from './App.module.css'
 
-import { TestButton } from './components/Button'
+import { SignIn } from './components/SignIn'
+import { Checkout } from './components/Checkout'
 
 const App = () => {
   return (
@@ -22,7 +24,10 @@ const App = () => {
           }
         ]}
       />
-      <TestButton />
+      <>
+        <Route path="/" exact component={SignIn} />
+        <Route path="/checkout/" component={Checkout} />
+      </>
     </div>
   )
 }
