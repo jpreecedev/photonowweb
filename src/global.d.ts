@@ -60,4 +60,3 @@ interface Window {
   browserHistory: any
 }
 
-declare module 'express-manifest-helpers'

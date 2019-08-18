@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 
-import { Copyright } from './Copyright'
 import { AddressForm } from './AddressForm'
 import { PaymentForm } from './PaymentForm'
 import { Review } from './Review'
@@ -130,7 +129,6 @@ function Checkout() {
             )}
           </>
         </Paper>
-        <Copyright />
       </main>
     </Container>
   )

@@ -35,6 +35,8 @@ app.use(
   })
 )
 
+console.log(manifestPath)
+
 app.use(serverRenderer())
 
 app.use(errorHandler)

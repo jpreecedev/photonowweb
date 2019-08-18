@@ -11,7 +11,6 @@ import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import { Copyright } from './Copyright'
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -97,9 +96,6 @@ function SignIn() {
           </form>
         </Paper>
       </main>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   )
 }
