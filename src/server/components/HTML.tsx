@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import Helmet from 'react-helmet'
 
 type Props = {
@@ -8,7 +8,12 @@ type Props = {
   styles: string
 }
 
-const HTML = ({ children, css = [], scripts = [], styles = '' }: Props) => {
+const HTML: FunctionComponent<Props> = ({
+  children,
+  css = [],
+  scripts = [],
+  styles = ''
+}) => {
   const head = Helmet.renderStatic()
   return (
     <html lang="">

@@ -1,7 +1,9 @@
+import { RequestWithUser } from 'global'
+import { Response } from 'express'
 import { errors } from '../utils'
 import { addOrUpdate } from '../database/store'
 
-async function post(req, res) {
+async function post(req: RequestWithUser, res: Response) {
   try {
     const { _id } = req.user
     const { storeSettings } = req.body

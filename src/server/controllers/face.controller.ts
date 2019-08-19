@@ -1,10 +1,16 @@
+import { Response } from 'express'
+import { RequestWithFile } from 'global'
 import { create } from '../database/face'
 import { errors } from '../utils'
 
-async function post(req, res) {
+async function post(req: RequestWithFile, res: Response) {
   try {
     const { _id: customerId } = req.user
     const originalFile = req.file.transforms.find(t => t.id === 'original')
+
+    if (!originalFile) {
+      throw new Error('Unable to find original file!')
+    }
 
     const { originalname, mimetype } = req.file
 

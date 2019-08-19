@@ -1,3 +1,5 @@
+import { Response } from 'express'
+import { RequestWithUser } from 'global'
 import { errors } from '../utils'
 import {
   getOrderForCustomer,
@@ -8,7 +10,7 @@ import {
   orderHasMomentAdded
 } from '../database/basket'
 
-async function get(req, res) {
+async function get(req: RequestWithUser, res: Response) {
   try {
     const { _id } = req.user
 
@@ -26,7 +28,7 @@ async function get(req, res) {
   }
 }
 
-async function post(req, res) {
+async function post(req: RequestWithUser, res: Response) {
   try {
     const { _id } = req.user
 
@@ -44,7 +46,7 @@ async function post(req, res) {
   }
 }
 
-async function put(req, res) {
+async function put(req: RequestWithUser, res: Response) {
   try {
     const { _id } = req.user
     const { momentId } = req.body
@@ -71,7 +73,7 @@ async function put(req, res) {
   }
 }
 
-async function deleteItem(req, res) {
+async function deleteItem(req: RequestWithUser, res: Response) {
   try {
     const { _id } = req.user
     const { orderId, momentId } = req.body

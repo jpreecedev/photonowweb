@@ -1,11 +1,20 @@
+import { RequestWithFile } from 'global'
+import { Response } from 'express'
 import { create } from '../database/moments'
 import { errors } from '../utils'
 
-async function post(req, res) {
+async function post(req: RequestWithFile, res: Response) {
   try {
     const { _id: photographerId } = req.user
     const originalFile = req.file.transforms.find(t => t.id === 'original')
     const resizedFile = req.file.transforms.find(t => t.id === 'resized')
+
+    if (!originalFile) {
+      throw new Error('Unable to find original file!')
+    }
+    if (!resizedFile) {
+      throw new Error('Unable to find resized file!')
+    }
 
     const { originalname, mimetype } = req.file
 

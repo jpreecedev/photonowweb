@@ -1,9 +1,12 @@
+import { RequestWithUser } from 'global'
+import { Response } from 'express'
 import { errors } from '../utils'
 import { STRIPE_SECRET_KEY } from '../config'
 import { addOrUpdateStripeCustomer } from '../database/user'
 import { create } from '../database/payment'
 import { getOrder } from '../database/basket/utils'
 import stripeFactory from 'stripe'
+
 const stripe = stripeFactory(STRIPE_SECRET_KEY)
 
 async function findOrCreateStripeCustomer(user, tokenId) {
@@ -23,7 +26,7 @@ async function findOrCreateStripeCustomer(user, tokenId) {
   })
 }
 
-async function post(req, res) {
+async function post(req: RequestWithUser, res: Response) {
   try {
     const { _id, profile } = req.user
     const { firstName, lastName } = profile

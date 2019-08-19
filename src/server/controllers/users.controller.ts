@@ -2,8 +2,9 @@ import jwt from 'jsonwebtoken'
 import { addOrUpdate, getProfile } from '../database/user'
 import { JWT_SECRET } from '../config'
 import { errors } from '../utils'
+import { Request, Response } from 'express'
 
-async function generateToken(req, res) {
+async function generateToken(req: Request, res) {
   try {
     const { id, provider, accessToken, profile } = req.body
     const { firstName, lastName } = profile

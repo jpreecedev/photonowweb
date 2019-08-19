@@ -1,7 +1,9 @@
+import { RequestWithOrder } from 'global'
+import { Response } from 'express'
 import { errors } from '../utils'
 import { getOrder, getOrders } from '../database/orders'
 
-async function get(req, res) {
+async function get(req: RequestWithOrder, res: Response) {
   try {
     const { _id } = req.user
     const { orderId } = req.params

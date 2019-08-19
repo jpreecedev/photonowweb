@@ -1,3 +1,6 @@
+import { Request, Response, NextFunction } from 'express'
+import { IUser } from 'database/schema/user'
+
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: 'development' | 'production' | 'test'
@@ -60,3 +63,34 @@ interface Window {
   browserHistory: any
 }
 
+interface OrderParams {
+  orderId: string
+}
+
+interface RequestWithUser extends Request {
+  user: IUser
+}
+
+interface RequestWithFile extends RequestWithUser {
+  file: UploadedFile
+}
+
+interface RequestWithOrder extends Request {
+  user: IUser
+  file: UploadedFile
+  params: OrderParams
+}
+
+type UploadedFile = {
+  originalname: String
+  mimetype: String
+  transforms: TransformedFile[]
+}
+
+type TransformedFile = {
+  id: String
+  bucket: String
+  contentType: String
+  location: String
+  etag: String
+}
