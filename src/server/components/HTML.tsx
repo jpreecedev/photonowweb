@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 type Props = {
   children: any
   css: string[]
+  headScripts: string[]
   scripts: string[]
   styles: string
 }
@@ -12,6 +13,7 @@ const HTML: FunctionComponent<Props> = ({
   children,
   css = [],
   scripts = [],
+  headScripts = [],
   styles = ''
 }) => {
   const head = Helmet.renderStatic()
@@ -28,6 +30,9 @@ const HTML: FunctionComponent<Props> = ({
         {head.meta.toComponent()}
         {head.link.toComponent()}
         {head.script.toComponent()}
+        {headScripts.filter(Boolean).map(src => (
+          <script key={src} src={src} />
+        ))}
         {css.filter(Boolean).map(href => (
           <link key={href} rel="stylesheet" href={href} />
         ))}

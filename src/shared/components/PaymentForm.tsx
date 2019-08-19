@@ -4,9 +4,13 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import { Elements, CardExpiryElement, CardCVCElement } from 'react-stripe-elements'
+import { StripeTextField } from './StripeTextField'
+import { CardNumberElement } from 'react-stripe-elements'
+import { StripeInput } from './StripeInput'
 
-function PaymentForm() {
-  return (
+const PaymentForm = () => (
+  <Elements>
     <>
       <Typography variant="h6" gutterBottom>
         Payment method
@@ -16,10 +20,24 @@ function PaymentForm() {
           <TextField required id="cardName" label="Name on card" fullWidth />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardNumber" label="Card number" fullWidth />
+          <StripeTextField label="Credit Card Number" component={CardNumberElement} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth />
+          <TextField
+            required
+            id="expDate"
+            label="Expiry date"
+            fullWidth
+            InputLabelProps={{
+              shrink: true
+            }}
+            InputProps={{
+              inputProps: {
+                component: CardExpiryElement
+              },
+              inputComponent: StripeInput
+            }}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -28,6 +46,15 @@ function PaymentForm() {
             label="CVV"
             helperText="Last three digits on signature strip"
             fullWidth
+            InputLabelProps={{
+              shrink: true
+            }}
+            InputProps={{
+              inputProps: {
+                component: CardCVCElement
+              },
+              inputComponent: StripeInput
+            }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -38,7 +65,7 @@ function PaymentForm() {
         </Grid>
       </Grid>
     </>
-  )
-}
+  </Elements>
+)
 
 export { PaymentForm }

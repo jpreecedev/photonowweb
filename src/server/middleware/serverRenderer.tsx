@@ -25,6 +25,7 @@ const serverRenderer: any = () => (req: express.Request, res: express.Response) 
         <Html
           css={[res.locals.assetPath('bundle.css'), res.locals.assetPath('vendor.css')]}
           styles={sheets.toString()}
+          headScripts={['https://js.stripe.com/v3/']}
           scripts={[res.locals.assetPath('bundle.js'), res.locals.assetPath('vendor.js')]}
         >
           {content}

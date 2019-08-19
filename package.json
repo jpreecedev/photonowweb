@@ -43,6 +43,7 @@
     "react-helmet": "^5.2.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-stripe-elements": "^4.0.1",
     "reselect": "^4.0.0",
     "serve-static": "^1.13.2",
     "sharp": "^0.23.0",
