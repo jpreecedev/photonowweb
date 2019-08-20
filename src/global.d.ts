@@ -63,6 +63,7 @@ declare global {
   }
   declare const __BROWSER__: string
   declare const __SERVER__: string
+  declare const FB: any
 }
 
 interface OrderParams {

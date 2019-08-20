@@ -1,3 +1,5 @@
+/* eslint-disable react/no-danger */
+
 import React, { FunctionComponent } from 'react'
 import Helmet from 'react-helmet'
 
@@ -41,7 +43,19 @@ const HTML: FunctionComponent<Props> = ({
         </style>
       </head>
       <body>
-        {/* eslint-disable-next-line react/no-danger */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.fbAsyncInit = function() {
+            FB.init({
+              appId            : '${process.env.FACEBOOK_APP_ID}',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v4.0'
+            });
+          };`
+          }}
+        ></script>
+        <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
         {scripts.filter(Boolean).map(src => (
           <script key={src} src={src} />

@@ -4,13 +4,12 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
-import Avatar from '@material-ui/core/Avatar'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+
+import { FacebookLoginButton } from './FacebookLoginButton'
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -51,9 +50,6 @@ function SignIn() {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -87,12 +83,13 @@ function SignIn() {
             <Button
               type="submit"
               fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               className={classes.submit}
             >
               Sign In
             </Button>
+            <FacebookLoginButton />
           </form>
         </Paper>
       </main>
