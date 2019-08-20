@@ -1,5 +1,4 @@
 import React from 'react'
-import { CardNumberElement } from 'react-stripe-elements'
 import TextField from '@material-ui/core/TextField'
 import { StripeInput } from './StripeInput'
 

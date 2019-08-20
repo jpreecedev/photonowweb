@@ -2,10 +2,26 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Select from '@material-ui/core/Select'
+import countryList from 'react-select-country-list'
+import { useTheme } from '@material-ui/core/styles'
+
+type Country = {
+  label: string
+  value: string
+}
 
 function AddressForm() {
+  const [state, setState] = React.useState<Country[]>([])
+
+  React.useEffect(() => {
+    setState(countryList().getData())
+  })
+
+  const theme = useTheme()
+
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -75,20 +91,29 @@ function AddressForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="billing country"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
+          <FormControl>
+            <InputLabel htmlFor="country" shrink required>
+              Country
+            </InputLabel>
+            <Select
+              required
+              native
+              inputProps={{
+                name: 'country',
+                id: 'country'
+              }}
+              style={{
+                color: theme.palette.text.secondary
+              }}
+            >
+              <option value="" disabled selected>
+                -- Please Select --
+              </option>
+              {state.map(option => (
+                <option value={option.value}>{option.label}</option>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
     </>
