@@ -4,7 +4,8 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   globals: {
     __BROWSER__: true,
-    __SERVER__: true
+    __SERVER__: true,
+    Promise: true
   },
   parser: 'babel-eslint',
   parserOptions: {
