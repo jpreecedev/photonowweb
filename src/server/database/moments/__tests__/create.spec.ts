@@ -1,16 +1,25 @@
-import { initDb, drop } from 'mongo-unit'
 import { create } from '..'
+import { sanitizeData } from '../../test-utils'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Create moment tests', () => {
-  beforeEach(async () => {
-    const testData = require('./create.json')
-    await initDb(testMongoUrl, testData)
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    const testData = require('./create.json')
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should create a new moment', async () => {
@@ -27,6 +36,6 @@ describe('Create moment tests', () => {
 
     const result = await create(newMoment)
 
-    expect(result.id).to.not.be.undefined
+    expect(result.id).not.toBeUndefined()
   })
 })

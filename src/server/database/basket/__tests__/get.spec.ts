@@ -1,20 +1,27 @@
-import { initDb, drop } from 'mongo-unit'
 import { Types } from 'mongoose'
 import { sanitizeData } from '../../test-utils'
 import { getOrderForCustomer, userHasOrder, orderHasMomentAdded } from '..'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Get order tests', () => {
   let testData = require('./get.json')
 
-  beforeEach(async () => {
-    testData = sanitizeData(testData)
-    await initDb(testMongoUrl, testData)
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should get the order', async () => {
@@ -22,13 +29,13 @@ describe('Get order tests', () => {
 
     const order = await getOrderForCustomer(customerId)
 
-    expect(order).not.to.be.undefined
-    expect(order.customerId.toString()).to.equal(customerId.toString())
-    expect(order.moments.length).to.equal(1)
-    expect(order.moments[0]._id.toString()).to.equal(
+    expect(order).not.toBeUndefined()
+    expect(order.customerId.toString()).toEqual(customerId.toString())
+    expect(order.moments.length).toEqual(1)
+    expect(order.moments[0]._id.toString()).toEqual(
       testData.orders[0].moments[0].toString()
     )
-    expect(order.amount).to.equal(testData.orders[0].amount)
+    expect(order.amount).toEqual(testData.orders[0].amount)
   })
 
   test('should verify that the user can access the order', async () => {
@@ -37,7 +44,7 @@ describe('Get order tests', () => {
 
     const hasOrder = await userHasOrder(customerId, orderId)
 
-    expect(hasOrder).to.be.true
+    expect(hasOrder).toBeTruthy()
   })
 
   test('should verify that the user cannot access the order', async () => {
@@ -46,7 +53,7 @@ describe('Get order tests', () => {
 
     const hasOrder = await userHasOrder(customerId, orderId)
 
-    expect(hasOrder).to.be.false
+    expect(hasOrder).toBeFalsy()
   })
 
   test('should verify that the moment has not already been added to the order', async () => {
@@ -56,7 +63,7 @@ describe('Get order tests', () => {
 
     const hasBeenAdded = await orderHasMomentAdded(customerId, orderId, momentId)
 
-    expect(hasBeenAdded).to.be.false
+    expect(hasBeenAdded).toBeFalsy()
   })
 
   test('should verify that the moment has already been added to the order', async () => {
@@ -66,7 +73,7 @@ describe('Get order tests', () => {
 
     const hasBeenAdded = await orderHasMomentAdded(customerId, orderId, momentId)
 
-    expect(hasBeenAdded).to.be.true
+    expect(hasBeenAdded).toBeTruthy()
   })
 
   test('should verify that the order is verified before checking if moment has been added', async () => {
@@ -76,6 +83,6 @@ describe('Get order tests', () => {
 
     const hasBeenAdded = await orderHasMomentAdded(customerId, orderId, momentId)
 
-    expect(hasBeenAdded).to.be.false
+    expect(hasBeenAdded).toBeFalsy()
   })
 })

@@ -1,18 +1,26 @@
-import { initDb, drop } from 'mongo-unit'
 import { Types } from 'mongoose'
 import { sanitizeData } from '../../test-utils'
 import { deleteOrderItem } from '..'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Delete order tests', () => {
-  beforeEach(async () => {
-    const testData = require('./delete.json')
-    await initDb(testMongoUrl, sanitizeData(testData))
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    const testData = require('./delete.json')
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should not delete the order item when the user does not have the order', async () => {
@@ -22,7 +30,7 @@ describe('Delete order tests', () => {
 
     const result = await deleteOrderItem(orderId, customerId, momentId)
 
-    expect(result).to.be.undefined
+    expect(result).toBeUndefined()
   })
 
   test('should delete the order item', async () => {
@@ -31,9 +39,9 @@ describe('Delete order tests', () => {
     const momentId = Types.ObjectId('4ccc2370562b178fdfa1be11')
 
     const result = await deleteOrderItem(orderId, customerId, momentId)
-    expect(result).not.to.be.undefined
-    expect(result.moments).not.to.be.undefined
-    expect(result.moments.length).to.equal(1)
-    expect(result.moments[0]._id.toString()).to.equal('4bcc2370562b178fdfa1be11')
+    expect(result).not.toBeUndefined()
+    expect(result.moments).not.toBeUndefined()
+    expect(result.moments.length).toEqual(1)
+    expect(result.moments[0]._id.toString()).toEqual('4bcc2370562b178fdfa1be11')
   })
 })

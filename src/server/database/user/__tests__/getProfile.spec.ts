@@ -1,17 +1,26 @@
-import { initDb, drop } from 'mongo-unit'
 import { getProfile } from '../../user'
+import { sanitizeData } from '../../test-utils'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Get user profile tests', () => {
   const testData = require('./getProfile.json')
 
-  beforeEach(async () => {
-    await initDb(testMongoUrl, testData)
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should get the specified user profile', async () => {
@@ -25,10 +34,10 @@ describe('Get user profile tests', () => {
 
     const { profile } = await getProfile(id)
 
-    expect(profile).to.not.be.undefined
-    expect(profile.emailAddress).to.equal(user.emailAddress)
-    expect(profile.firstName).to.equal(user.firstName)
-    expect(profile.lastName).to.equal(user.lastName)
-    expect(profile.picture.url).to.equal(user.pictureUrl)
+    expect(profile).not.toBeUndefined()
+    expect(profile.emailAddress).toEqual(user.emailAddress)
+    expect(profile.firstName).toEqual(user.firstName)
+    expect(profile.lastName).toEqual(user.lastName)
+    expect(profile.picture.url).toEqual(user.pictureUrl)
   })
 })

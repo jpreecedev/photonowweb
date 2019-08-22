@@ -1,25 +1,33 @@
 import { Types } from 'mongoose'
-import { initDb, drop } from 'mongo-unit'
 import { sanitizeData } from '../../test-utils'
 import { create } from '..'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Create payment tests', () => {
-  beforeEach(async () => {
-    const testData = require('./create.json')
-    await initDb(testMongoUrl, sanitizeData(testData))
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    const testData = require('./create.json')
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should create a payment', async () => {
     const newPayment = {
       customerId: Types.ObjectId('1cfc2370562b178fdfa1be91'),
       photographerId: Types.ObjectId('1dfd2370562d198fdfa1de91'),
-      moments: [Types.ObjectId('9ccc2370562b178fdfa1be11')],
+      moments: ['9ccc2370562b178fdfa1be11'],
       amount: 600,
       paid: true,
       status: 'succeeded',
@@ -30,6 +38,6 @@ describe('Create payment tests', () => {
 
     const paymentSaved = await create(newPayment)
 
-    expect(paymentSaved).to.be.true
+    expect(paymentSaved).toBeTruthy()
   })
 })

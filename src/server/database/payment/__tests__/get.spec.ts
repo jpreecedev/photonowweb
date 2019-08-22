@@ -1,19 +1,27 @@
 import { Types } from 'mongoose'
-import { initDb, drop } from 'mongo-unit'
 import { sanitizeData } from '../../test-utils'
 import { getPayment } from '..'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Get payment tests', () => {
   const testData = require('./get.json')
 
-  beforeEach(async () => {
-    await initDb(testMongoUrl, sanitizeData(testData))
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should get the payment', async () => {
@@ -21,11 +29,13 @@ describe('Get payment tests', () => {
 
     const payment = await getPayment(paymentId)
 
-    expect(payment.customerId.toString()).to.equal(
+    expect(payment.customerId.toString()).toEqual(
       testData.payments[0].customerId.toString()
     )
-    expect(payment.amount).to.equal(testData.payments[0].amount)
-    expect(payment.moments.length).to.equal(1)
-    expect(payment.moments[0]).to.equal(testData.payments[0].moments[0])
+    expect(payment.amount).toEqual(testData.payments[0].amount)
+    expect(payment.moments.length).toEqual(1)
+    expect(payment.moments[0].toString()).toEqual(
+      testData.payments[0].moments[0].toString()
+    )
   })
 })

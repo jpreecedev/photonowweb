@@ -1,18 +1,26 @@
-import { initDb, drop } from 'mongo-unit'
 import { Types } from 'mongoose'
 import { sanitizeData } from '../../test-utils'
 import { getOrder, getOrders } from '..'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Get order tests', () => {
-  beforeEach(async () => {
-    const testData = require('./get-order.json')
-    await initDb(testMongoUrl, sanitizeData(testData))
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    const testData = require('./get-order.json')
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should get the order when order id is supplied', async () => {
@@ -21,8 +29,8 @@ describe('Get order tests', () => {
 
     const order = await getOrder(customerId, orderId)
 
-    expect(order).not.to.be.undefined
-    expect(order._id.toString()).to.equal(orderId.toString())
+    expect(order).not.toBeUndefined()
+    expect(order._id.toString()).toEqual(orderId.toString())
   })
 
   test('should get all the orders for the given customer', async () => {
@@ -30,9 +38,9 @@ describe('Get order tests', () => {
 
     const orders = await getOrders(customerId)
 
-    expect(orders).not.to.be.undefined
-    expect(orders.length).to.equal(2)
-    expect(orders[0]._id.toString()).to.equal('9ddd2370562d178fdfd1de99')
-    expect(orders[1]._id.toString()).to.equal('9eee2370562d178fdfd1de99')
+    expect(orders).not.toBeUndefined()
+    expect(orders.length).toEqual(2)
+    expect(orders[0]._id.toString()).toEqual('9ddd2370562d178fdfd1de99')
+    expect(orders[1]._id.toString()).toEqual('9eee2370562d178fdfd1de99')
   })
 })

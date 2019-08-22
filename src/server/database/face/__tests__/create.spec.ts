@@ -1,20 +1,27 @@
 import { Types } from 'mongoose'
-import { initDb, drop } from 'mongo-unit'
 import { create } from '..'
 import { sanitizeData } from '../../test-utils'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Create face tests', () => {
   let testData = require('./create.json')
 
-  beforeEach(async () => {
-    testData = sanitizeData(testData)
-    await initDb(testMongoUrl, testData)
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should create a new face', async () => {
@@ -30,7 +37,7 @@ describe('Create face tests', () => {
 
     const result = await create(face)
 
-    expect(result.id).to.not.be.undefined
-    expect(result.customerId.toString()).to.equal(face.customerId.toString())
+    expect(result.id).not.toBeUndefined()
+    expect(result.customerId.toString()).toEqual(face.customerId.toString())
   })
 })

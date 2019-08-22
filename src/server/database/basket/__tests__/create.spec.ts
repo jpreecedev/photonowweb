@@ -1,18 +1,20 @@
-import { initDb, drop } from 'mongo-unit'
 import { Types } from 'mongoose'
 import { createOrder } from '../create'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Create order tests', () => {
-  const testData = require('./create.json')
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
 
-  beforeEach(async () => {
-    await initDb(testMongoUrl, testData)
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
   })
 
   test('should create an order', async () => {
@@ -20,9 +22,9 @@ describe('Create order tests', () => {
 
     const order = await createOrder(customerId)
 
-    expect(order.customerId.toString()).to.equal(customerId.toString())
-    expect(order.amount).to.equal(0)
-    expect(order.moments).not.to.be.undefined
-    expect(order.moments.length).to.equal(0)
+    expect(order.customerId.toString()).toEqual(customerId.toString())
+    expect(order.amount).toEqual(0)
+    expect(order.moments).not.toBeUndefined()
+    expect(order.moments.length).toEqual(0)
   })
 })

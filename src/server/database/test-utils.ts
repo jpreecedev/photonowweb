@@ -7,11 +7,12 @@ function sanitizeData(testData) {
       order.customerId = Types.ObjectId(order.customerId)
       if (order.moments) {
         order.moments.forEach(moment => {
-          moment._id = Types.ObjectId(moment._id)
+          moment = Types.ObjectId(moment)
         })
       }
     })
   }
+
   if (testData.moments && testData.moments.length) {
     testData.moments.forEach(moment => {
       moment._id = Types.ObjectId(moment._id)

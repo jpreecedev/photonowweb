@@ -1,18 +1,27 @@
-import { initDb, drop } from 'mongo-unit'
 import { Types } from 'mongoose'
+import { sanitizeData } from '../../test-utils'
 import { addOrUpdateStripeCustomer } from '../../user'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Stripe token tests', () => {
   const testData = require('./addOrUpdateStripeCustomer.json')
 
-  beforeEach(async () => {
-    await initDb(testMongoUrl, testData)
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should update the stripe token', async () => {
@@ -21,8 +30,8 @@ describe('Stripe token tests', () => {
 
     const result = await addOrUpdateStripeCustomer(id, stripeCustomerId)
 
-    expect(result).to.not.be.undefined
-    expect(result.stripeCustomerId).to.not.be.undefined
-    expect(result.stripeCustomerId).to.equal(stripeCustomerId)
+    expect(result).not.toBeUndefined()
+    expect(result.stripeCustomerId).not.toBeUndefined()
+    expect(result.stripeCustomerId).toEqual(stripeCustomerId)
   })
 })

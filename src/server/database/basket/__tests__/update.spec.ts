@@ -1,18 +1,26 @@
-import { initDb, drop } from 'mongo-unit'
 import { Types } from 'mongoose'
 import { sanitizeData } from '../../test-utils'
 import { addMomentToOrder } from '../../basket'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Update order tests', () => {
-  beforeEach(async () => {
-    const testData = require('./update.json')
-    await initDb(testMongoUrl, sanitizeData(testData))
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    const testData = require('./update.json')
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should add a moment to an existing order', async () => {
@@ -22,10 +30,10 @@ describe('Update order tests', () => {
 
     const order = await addMomentToOrder(customerId, orderId, momentId)
 
-    expect(order).not.to.be.undefined
-    expect(order.moments).not.to.be.undefined
-    expect(order.moments.length).to.equal(1)
-    expect(order.moments[0]._id.toString()).to.equal(momentId.toString())
+    expect(order).not.toBeUndefined()
+    expect(order.moments).not.toBeUndefined()
+    expect(order.moments.length).toEqual(1)
+    expect(order.moments[0]._id.toString()).toEqual(momentId.toString())
   })
 
   test('should not add a moment to an existing order when customer id is wrong', async () => {
@@ -35,6 +43,6 @@ describe('Update order tests', () => {
 
     const order = await addMomentToOrder(customerId, orderId, momentId)
 
-    expect(order).to.be.undefined
+    expect(order).toBeUndefined()
   })
 })

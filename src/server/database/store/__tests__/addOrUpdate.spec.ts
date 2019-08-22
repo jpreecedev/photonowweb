@@ -1,18 +1,27 @@
-import { initDb, drop } from 'mongo-unit'
 import { addOrUpdate } from '..'
+import { sanitizeData } from '../../test-utils'
 import { Types } from 'mongoose'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Add or update store tests', () => {
   const testData = require('./addOrUpdate.json')
 
-  beforeEach(async () => {
-    await initDb(testMongoUrl, testData)
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should create new store settings', async () => {
@@ -24,14 +33,14 @@ describe('Add or update store tests', () => {
 
     let result = await addOrUpdate(photographerId, storeSettings)
 
-    expect(result.photographerId).to.not.be.undefined
-    expect(result.photographerId.toString()).to.equal(photographerId.toString())
+    expect(result.photographerId).not.toBeUndefined()
+    expect(result.photographerId.toString()).toEqual(photographerId.toString())
 
-    expect(result.singleImagePrice).to.not.be.undefined
-    expect(result.singleImagePrice).to.equal(storeSettings.singleImagePrice)
+    expect(result.singleImagePrice).not.toBeUndefined()
+    expect(result.singleImagePrice).toEqual(storeSettings.singleImagePrice)
 
     storeSettings.singleImagePrice = 4433.22
     result = await addOrUpdate(photographerId, storeSettings)
-    expect(result.singleImagePrice).to.equal(storeSettings.singleImagePrice)
+    expect(result.singleImagePrice).toEqual(storeSettings.singleImagePrice)
   })
 })

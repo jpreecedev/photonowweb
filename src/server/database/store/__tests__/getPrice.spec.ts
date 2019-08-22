@@ -1,19 +1,27 @@
-import { initDb, drop } from 'mongo-unit'
 import { sanitizeData } from '../../test-utils'
 import { getPrice } from '../../store'
 import { Types } from 'mongoose'
+import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
-const testMongoUrl = process.env.DB_CONNECTION_STRING
+const dbHelper = new TestDbHelper()
 
 describe('Get Price tests', () => {
   let testData = require('./getPrice.json')
 
-  beforeEach(async () => {
-    await initDb(testMongoUrl, sanitizeData(testData))
+  beforeAll(async () => {
+    await dbHelper.start()
+  })
+
+  afterAll(async () => {
+    await dbHelper.stop()
   })
 
   afterEach(async () => {
-    await drop()
+    await dbHelper.cleanup()
+  })
+
+  beforeEach(async () => {
+    await dbHelper.seed(sanitizeData(testData))
   })
 
   test('should get the price for an existing store', async () => {
@@ -21,7 +29,7 @@ describe('Get Price tests', () => {
 
     const singleImagePrice = await getPrice(photographerId)
 
-    expect(singleImagePrice).to.not.be.undefined
-    expect(singleImagePrice).to.equal(testData.stores[0].singleImagePrice)
+    expect(singleImagePrice).not.toBeUndefined()
+    expect(singleImagePrice).toEqual(testData.stores[0].singleImagePrice)
   })
 })
