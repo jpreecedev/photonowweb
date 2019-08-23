@@ -16,7 +16,7 @@ export default class TestDbHelper {
     const url = await this.server.getConnectionString()
     this.connection = await MongoClient.connect(url, { useNewUrlParser: true })
     this.db = this.connection.db(await this.server.getDbName())
-    await mongoose.connect(url, {}, err => {
+    await mongoose.connect(url, { useNewUrlParser: true }, err => {
       if (err) console.error(err)
     })
   }

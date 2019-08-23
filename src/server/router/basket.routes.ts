@@ -4,9 +4,9 @@ import { authorisation } from '../utils'
 
 const router = express.Router()
 
-router.get('/', authorisation.jwt(), BasketController.get)
-router.post('/', authorisation.jwt(), BasketController.post)
-router.put('/', authorisation.jwt(), BasketController.put)
-router.delete('/', authorisation.jwt(), BasketController.deleteItem)
+router.get('/', authorisation.basic(), BasketController.get)
+router.post('/', authorisation.basic(), BasketController.post)
+router.put('/', authorisation.basic(), BasketController.put)
+router.delete('/', authorisation.basic(), BasketController.deleteItem)
 
 export default router

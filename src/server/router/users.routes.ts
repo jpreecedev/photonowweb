@@ -4,8 +4,7 @@ import { authorisation } from '../utils'
 
 const router = express.Router()
 
-router.post('/', authorisation.jwt(), UsersController.post)
-router.post('/token', UsersController.generateToken)
-router.get('/:id', authorisation.jwt(), UsersController.get)
+router.post('/', authorisation.basic(), UsersController.post)
+router.get('/:id', authorisation.basic(), UsersController.get)
 
 export default router

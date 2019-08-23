@@ -4,6 +4,6 @@ import { authorisation } from '../utils'
 
 const router = express.Router()
 
-router.post('/', authorisation.jwt(), PaymentController.post)
+router.post('/', authorisation.basic(), PaymentController.post)
 
 export default router

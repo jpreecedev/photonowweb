@@ -1,7 +1,6 @@
 import { addOrUpdate } from './addOrUpdate'
 import { getUser } from './get'
-import { getProfile } from './getProfile'
-import { updateProfile } from './updateProfile'
 import { addOrUpdateStripeCustomer } from './addOrUpdateStripeCustomer'
+import { findOrCreate } from './findOrCreate'
 
-export { addOrUpdate, getUser, getProfile, updateProfile, addOrUpdateStripeCustomer }
+export { addOrUpdate, getUser, addOrUpdateStripeCustomer, findOrCreate }

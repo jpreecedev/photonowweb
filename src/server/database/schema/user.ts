@@ -1,31 +1,7 @@
-import { model, Schema, Document } from 'mongoose'
-
-interface IUser extends Document {
-  id: String
-  jwtoken: String
-  accessToken: String
-  refreshToken: String
-  provider: String
-  businessName: String
-  address: String
-  lat: Number
-  lng: Number
-  profile: {
-    emailAddress: String
-    firstName: String
-    lastName: String
-    picture: {
-      height: Number
-      width: Number
-      url: String
-    }
-  }
-  stripeCustomerId: String
-}
+import { model, Model, Schema } from 'mongoose'
 
 const UserSchema = new Schema({
   id: String,
-  jwtoken: String,
   accessToken: String,
   refreshToken: String,
   provider: String,
@@ -33,19 +9,17 @@ const UserSchema = new Schema({
   address: String,
   lat: Number,
   lng: Number,
-  profile: {
-    emailAddress: String,
-    firstName: String,
-    lastName: String,
-    picture: {
-      height: Number,
-      width: Number,
-      url: String
-    }
+  email: String,
+  displayName: String,
+  username: String,
+  picture: {
+    height: Number,
+    width: Number,
+    url: String
   },
   stripeCustomerId: String
 })
 
-const User = model<IUser>('User', UserSchema)
+const User: Model<IUser> = model<IUser>('User', UserSchema)
 
-export { User, IUser }
+export { User }

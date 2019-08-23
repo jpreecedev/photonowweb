@@ -21,15 +21,14 @@ async function findOrCreateStripeCustomer(user, tokenId) {
   }
 
   return stripe.customers.create({
-    email: user.profile.emailAddress,
+    email: user.email,
     source: tokenId
   })
 }
 
 async function post(req: RequestWithUser, res: Response) {
   try {
-    const { _id, profile } = req.user
-    const { firstName, lastName } = profile
+    const { _id, displayName } = req.user
     const { tokenId } = req.body
 
     const stripeCustomer = await findOrCreateStripeCustomer(req.user, tokenId)
@@ -42,7 +41,7 @@ async function post(req: RequestWithUser, res: Response) {
       currency: 'gbp',
       customer: stripeCustomer.id,
       source: stripeCustomer.default_source.id,
-      description: `Purchase of precious moments (${firstName} ${lastName})`,
+      description: `Purchase of precious moments (${displayName})`,
       order: order._id.toString()
     })
 

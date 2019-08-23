@@ -30,8 +30,13 @@ describe('Add or update user tests', () => {
       lat: testData.users[0].lat,
       lng: testData.users[0].lng,
       address: testData.users[0].address,
-      profile: testData.users[0].profile,
-      provider: testData.users[0].provider
+      provider: testData.users[0].provider,
+      email: testData.users[0].email,
+      displayName: testData.users[0].displayName,
+      username: testData.users[0].username,
+      picture: {
+        url: testData.users[0].picture.url
+      }
     }
 
     const result = await getUser(id)
@@ -40,11 +45,10 @@ describe('Add or update user tests', () => {
     expect(result.lat).toEqual(user.lat)
     expect(result.lng).toEqual(user.lng)
     expect(result.address).toEqual(user.address)
-    expect(result.profile).not.toBeUndefined()
-    expect(result.profile.emailAddress).toEqual(user.profile.emailAddress)
-    expect(result.profile.firstName).toEqual(user.profile.firstName)
-    expect(result.profile.lastName).toEqual(user.profile.lastName)
-    expect(result.profile.picture.url).toEqual(user.profile.picture.url)
+    expect(result.email).toEqual(user.email)
+    expect(result.displayName).toEqual(user.displayName)
+    expect(result.username).toEqual(user.username)
+    expect(result.picture.url).toEqual(user.picture.url)
     expect(result.provider).toEqual(user.provider)
   })
 })

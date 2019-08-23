@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { IUser } from 'database/schema/user'
+import { Document } from 'mongoose'
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -64,36 +64,63 @@ declare global {
   declare const __BROWSER__: string
   declare const __SERVER__: string
   declare const FB: any
-}
 
-interface OrderParams {
-  orderId: string
-}
+  interface Profile {
+    id: String
+    displayName: String
+    username: String
+    email: String
+  }
 
-interface RequestWithUser extends Request {
-  user: IUser
-}
+  interface IUser extends Document {
+    id: String
+    accessToken?: String
+    refreshToken?: String
+    provider?: String
+    businessName?: String
+    address?: String
+    lat?: Number
+    lng?: Number
+    email?: String
+    displayName?: String
+    username?: String
+    picture?: {
+      height?: Number
+      width?: Number
+      url?: String
+    }
+    stripeCustomerId?: String
+  }
 
-interface RequestWithFile extends RequestWithUser {
-  file: UploadedFile
-}
+  interface OrderParams {
+    orderId: string
+  }
 
-interface RequestWithOrder extends Request {
-  user: IUser
-  file: UploadedFile
-  params: OrderParams
-}
+  interface RequestWithUser extends Request {
+    user: IUser
+  }
 
-type UploadedFile = {
-  originalname: String
-  mimetype: String
-  transforms: TransformedFile[]
-}
+  interface RequestWithFile extends RequestWithUser {
+    file: UploadedFile
+  }
 
-type TransformedFile = {
-  id: String
-  bucket: String
-  contentType: String
-  location: String
-  etag: String
+  interface RequestWithOrder extends Request {
+    user: IUser
+    file: UploadedFile
+    params: OrderParams
+  }
+
+  type UploadedFile = {
+    originalname: String
+    mimetype: String
+    transforms: TransformedFile[]
+  }
+
+  type TransformedFile = {
+    id: String
+    bucket: String
+    contentType: String
+    location: String
+    etag: String
+  }
 }

@@ -1,28 +1,21 @@
 import passport from 'passport'
-import passportJWT from 'passport-jwt'
+import { FacebookStrategy } from 'passport-facebook'
 
-const JWTStrategy = passportJWT.Strategy
-const ExtractJwt = passportJWT.ExtractJwt
-
-import { JWT_SECRET } from '../config'
-import { getUser } from '../database/user'
+import { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, PORT } from '../config'
+import { findOrCreate } from '../database/user'
 
 function authentication(app) {
   app.use(passport.initialize())
 
   passport.use(
-    new JWTStrategy(
+    new FacebookStrategy(
       {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: JWT_SECRET
+        clientID: FACEBOOK_APP_ID,
+        clientSecret: FACEBOOK_APP_SECRET,
+        callbackURL: `${HOST}:${PORT}/auth/facebook/callback`
       },
-      async (jwtPayload, done) => {
-        try {
-          const user = await getUser(jwtPayload.id)
-          return done(null, user)
-        } catch (ex) {
-          return done(ex, null)
-        }
+      async (accessToken: string, refreshToken: string, profile: Profile) => {
+        return await findOrCreate(profile, accessToken, refreshToken)
       }
     )
   )

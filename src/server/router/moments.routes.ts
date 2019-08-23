@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post(
   '/',
-  authorisation.jwt(),
+  authorisation.basic(),
   s3Upload.uploadFromClient(
     true,
     file => ({ filename: file.originalname }),
