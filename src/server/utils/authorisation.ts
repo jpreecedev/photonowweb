@@ -1,6 +1,6 @@
-import passport from 'passport'
+import { ensureLoggedIn } from 'connect-ensure-login'
 
-const basic = () => passport.authenticate('facebook', { session: false })
+const basic = () => ensureLoggedIn()
 
 export default {
   basic

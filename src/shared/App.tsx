@@ -9,6 +9,8 @@ import LandingPage from '../pages/LandingPage'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
 import { Checkout } from './components/Checkout'
+import { LoginFailed } from './components/LoginFailed'
+import { Profile } from './components/Profile'
 
 class App extends React.Component {
   state = { stripe: null }
@@ -36,6 +38,8 @@ class App extends React.Component {
           <Route path="/checkout/" component={Checkout} />
           <Route path="/sign-up/" component={SignUp} />
           <Route path="/sign-in" exact component={SignIn} />
+          <Route path="/login-failed" exact component={LoginFailed} />
+          <Route path="/profile" exact component={Profile} />
         </>
       </StripeProvider>
     )

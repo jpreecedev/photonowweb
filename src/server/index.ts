@@ -4,10 +4,12 @@ import cors from 'cors'
 import chalk from 'chalk'
 import manifestHelpers from 'express-manifest-helpers'
 import bodyParser from 'body-parser'
+import router from './router'
 import paths from '../../config/paths'
 import errorHandler from './middleware/errorHandler'
 import serverRenderer from './middleware/serverRenderer'
 import { connectToDatabase } from './database/connection'
+import { authentication } from './utils/authentication'
 
 require('dotenv').config()
 
@@ -26,6 +28,9 @@ app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+authentication(app)
+router(app)
 
 const manifestPath = path.join(paths.clientBuild, paths.publicPath)
 
