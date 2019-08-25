@@ -48,7 +48,7 @@ function authentication(app) {
       {
         clientID: FACEBOOK_APP_ID,
         clientSecret: FACEBOOK_APP_SECRET,
-        callbackURL: `${HOST}:${PORT}/api/auth/facebook/callback`,
+        callbackURL: `https://25cb469d.ngrok.io/api/auth/facebook/callback`,
         profileFields: ['id', 'displayName', 'photos', 'email']
       },
       async (
