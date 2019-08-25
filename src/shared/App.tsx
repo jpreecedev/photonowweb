@@ -6,11 +6,11 @@ import { Route } from 'react-router-dom'
 import './App.css'
 
 import LandingPage from '../pages/LandingPage'
+import ProfilePage from '../pages/Profile'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
 import { Checkout } from './components/Checkout'
 import { LoginFailed } from './components/LoginFailed'
-import { Profile } from './components/Profile'
 import { SecureRoute } from './components/SecureRoute'
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/login-failed" exact component={LoginFailed} />
         <SecureRoute path="/checkout" component={Checkout} />
-        <SecureRoute path="/profile" exact component={Profile} />
+        <SecureRoute path="/profile" exact component={ProfilePage} />
       </>
     </StripeProvider>
   )
