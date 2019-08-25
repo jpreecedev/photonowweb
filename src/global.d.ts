@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, NextFunction } from 'express'
 import { Document } from 'mongoose'
 
 declare namespace NodeJS {
@@ -84,11 +84,7 @@ declare global {
     email?: String
     displayName?: String
     username?: String
-    picture?: {
-      height?: Number
-      width?: Number
-      url?: String
-    }
+    selectedPhoto?: String
     stripeCustomerId?: String
   }
 

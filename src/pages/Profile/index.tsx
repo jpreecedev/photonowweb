@@ -7,7 +7,6 @@ import Footer from '../../shared/components/Footer'
 import GridContainer from '../../shared/components/GridContainer'
 import GridItem from '../../shared/components/GridItem'
 import Parallax from '../../shared/components/Parallax'
-import { PictureGallery } from '../../shared/components/PictureGallery'
 
 import { profilePageStyle } from './style'
 
@@ -37,9 +36,6 @@ function ProfilePage({ classes, user, ...rest }) {
                     <h3 className={classes.title}>{state.profile.name}</h3>
                   </div>
                 </div>
-              </GridItem>
-              <GridItem xs={12}>
-                <PictureGallery pictures={mappedPhotos} />
               </GridItem>
             </GridContainer>
           </div>

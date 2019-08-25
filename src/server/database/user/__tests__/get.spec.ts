@@ -34,9 +34,7 @@ describe('Add or update user tests', () => {
       email: testData.users[0].email,
       displayName: testData.users[0].displayName,
       username: testData.users[0].username,
-      picture: {
-        url: testData.users[0].picture.url
-      }
+      selectedPhoto: testData.users[0].selectedPhoto
     }
 
     const result = await getUser(id)
@@ -48,7 +46,7 @@ describe('Add or update user tests', () => {
     expect(result.email).toEqual(user.email)
     expect(result.displayName).toEqual(user.displayName)
     expect(result.username).toEqual(user.username)
-    expect(result.picture.url).toEqual(user.picture.url)
+    expect(result.selectedPhoto).toEqual(user.selectedPhoto)
     expect(result.provider).toEqual(user.provider)
   })
 })

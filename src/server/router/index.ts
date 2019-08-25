@@ -4,7 +4,6 @@ import storeRoutes from './store.routes'
 import paymentRoutes from './payment.routes'
 import basketRoutes from './basket.routes'
 import ordersRoutes from './orders.routes'
-import faceRoutes from './face.routes'
 import authRoutes from './auth.routes'
 import tokenRoutes from './token.routes'
 
@@ -17,7 +16,6 @@ function Router(app) {
   app.use(`${BASE_API_URL}/payment`, paymentRoutes)
   app.use(`${BASE_API_URL}/basket`, basketRoutes)
   app.use(`${BASE_API_URL}/orders`, ordersRoutes)
-  app.use(`${BASE_API_URL}/face`, faceRoutes)
   app.use(`${BASE_API_URL}/auth`, authRoutes)
   app.use(`${BASE_API_URL}/token`, tokenRoutes)
 }

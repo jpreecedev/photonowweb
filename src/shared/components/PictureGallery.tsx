@@ -12,15 +12,12 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       maxWidth: '100%',
       maxHeight: 800,
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.default
+      flexGrow: 1
     },
     header: {
       display: 'flex',
       alignItems: 'center',
-      height: 50,
-      paddingLeft: theme.spacing(4),
-      backgroundColor: theme.palette.background.default
+      height: 50
     },
     img: {
       maxWidth: '100%',
@@ -30,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 'auto',
       height: 'auto',
       margin: '0 auto'
+    },
+    stepper: {
+      backgroundColor: 'transparent'
     }
   })
 )
@@ -69,6 +69,7 @@ function PictureGallery({ pictures }) {
         position="static"
         variant="text"
         activeStep={activeStep}
+        className={classes.stepper}
         nextButton={
           <Button
             size="small"

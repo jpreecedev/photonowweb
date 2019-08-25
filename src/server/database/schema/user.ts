@@ -12,11 +12,7 @@ const UserSchema = new Schema({
   email: String,
   displayName: String,
   username: String,
-  picture: {
-    height: Number,
-    width: Number,
-    url: String
-  },
+  selectedPhoto: String,
   stripeCustomerId: String
 })
 

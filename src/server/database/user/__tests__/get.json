@@ -10,7 +10,7 @@
       "email": "test@test.com",
       "displayName": "Test Testington",
       "username": "Test Username",
-      "picture": { "url": "/path/to/file.png", "height": 50, "width": 50 }
+      "selectedPhoto": "SOME SELECTED PHOTO"
     }
   ]
 }
