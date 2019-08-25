@@ -5,13 +5,14 @@ import { Route } from 'react-router-dom'
 
 import './App.css'
 
+import { SecureRoute } from './components/SecureRoute'
 import LandingPage from '../pages/LandingPage'
 import ProfilePage from '../pages/Profile'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
 import { Checkout } from './components/Checkout'
 import { LoginFailed } from './components/LoginFailed'
-import { SecureRoute } from './components/SecureRoute'
+import { Setup } from './components/Setup'
 
 function App() {
   const [state, setState] = React.useState({ stripe: null })
@@ -45,6 +46,7 @@ function App() {
         <Route path="/login-failed" exact component={LoginFailed} />
         <SecureRoute path="/checkout" component={Checkout} />
         <SecureRoute path="/profile" exact component={ProfilePage} />
+        <SecureRoute path="/setup" exact component={Setup} />
       </>
     </StripeProvider>
   )

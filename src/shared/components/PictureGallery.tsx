@@ -10,7 +10,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 800,
+      maxWidth: '100%',
       maxHeight: 800,
       flexGrow: 1,
       backgroundColor: theme.palette.background.default
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default
     },
     img: {
-      maxWidth: 800,
+      maxWidth: '100%',
       maxHeight: 800,
       overflow: 'hidden',
       display: 'block',
@@ -39,7 +39,7 @@ function PictureGallery({ pictures }) {
   const theme = useTheme()
   const [activeStep, setActiveStep] = React.useState(0)
 
-  if (!pictures) {
+  if (!pictures || !pictures.length) {
     return null
   }
 
