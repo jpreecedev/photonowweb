@@ -45,30 +45,32 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 function Profile({ user }) {
+  const [state, setState] = React.useState({ profile: null, picture: null, photos: [] })
   const classes = useStyles()
 
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${user.accessToken}&fields=id,first_name,last_name,email,about,picture`
+        `https://graph.facebook.com/me?access_token=${user.accessToken}&fields=id,first_name,last_name,email,about,picture,photos`
       )
-      const {
-        id,
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        picture
-      } = await response.json()
+      const fullData = await response.json()
+
+      const { first_name: firstName, last_name: lastName, picture, photos } = fullData
 
       const profile = {
         firstName,
         lastName
       }
 
-      console.log(id, profile, email, picture)
+      setState({
+        ...state,
+        profile,
+        picture,
+        photos: photos.data
+      })
+
+      console.log(photos.data)
     }
     fetchData()
   }, [user])
@@ -119,31 +121,18 @@ function Profile({ user }) {
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map(card => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {state.photos.map(photo => (
+              <Grid item key={photo.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+                    image={`https://graph.facebook.com/${photo.id}/picture?access_token=${user.accessToken}`}
+                    title={photo.id}
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
                   <CardActions>
                     <Button size="small" color="primary">
                       View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
                     </Button>
                   </CardActions>
                 </Card>
