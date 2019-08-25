@@ -4,6 +4,7 @@ import cors from 'cors'
 import chalk from 'chalk'
 import manifestHelpers from 'express-manifest-helpers'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import router from './router'
 import paths from '../../config/paths'
 import errorHandler from './middleware/errorHandler'
@@ -28,6 +29,7 @@ app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 authentication(app)
 router(app)

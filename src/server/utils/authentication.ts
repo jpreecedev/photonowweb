@@ -9,8 +9,9 @@ function authentication(app) {
   app.use(
     require('express-session')({
       secret: process.env.EXPRESS_SESSION_SECRET,
-      resave: true,
-      saveUninitialized: true
+      resave: false,
+      saveUninitialized: true,
+      cookie: { httpOnly: true, maxAge: 2419200000 }
     })
   )
   app.use(passport.initialize())

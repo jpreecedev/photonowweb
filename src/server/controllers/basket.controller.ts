@@ -1,5 +1,4 @@
 import { Response } from 'express'
-import { RequestWithUser } from 'global'
 import { errors } from '../utils'
 import {
   getOrderForCustomer,

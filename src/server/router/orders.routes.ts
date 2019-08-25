@@ -4,6 +4,6 @@ import { authorisation } from '../utils'
 
 const router = express.Router()
 
-router.get('/:orderId?', authorisation.basic(), OrdersController.get)
+router.get('/:orderId?', authorisation.basic, OrdersController.get)
 
 export default router
