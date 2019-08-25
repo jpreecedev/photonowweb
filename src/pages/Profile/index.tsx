@@ -7,7 +7,7 @@ import Footer from '../../shared/components/Footer'
 import GridContainer from '../../shared/components/GridContainer'
 import GridItem from '../../shared/components/GridItem'
 import Parallax from '../../shared/components/Parallax'
-import { Profile } from '../../shared/components/Profile'
+import { PictureGallery } from '../../shared/components/PictureGallery'
 
 import { profilePageStyle } from './style'
 
@@ -50,23 +50,22 @@ function ProfilePage({ classes, user, ...rest }) {
     fetchData()
   }, [user])
 
+  const mappedPhotos =
+    state.photos.length &&
+    state.photos.map(photo => ({
+      label: new Date(photo.created_time).toDateString(),
+      url: `https://graph.facebook.com/${photo.id}/picture?access_token=${user.accessToken}`
+    }))
+
   return (
     <>
-      <Header
-        color="transparent"
-        fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: 'white'
-        }}
-        {...rest}
-      />
-      <Parallax filter image={require('../../../assets/crowd.png')} />
+      <Header color="transparent" fixed {...rest} />
+      <Parallax small filter image={require('../../../assets/crowd.png')} />
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12}>
                 <div className={classes.profile}>
                   <div>
                     {state.picture && (
@@ -78,8 +77,10 @@ function ProfilePage({ classes, user, ...rest }) {
                   </div>
                 </div>
               </GridItem>
+              <GridItem xs={12}>
+                <PictureGallery pictures={mappedPhotos} />
+              </GridItem>
             </GridContainer>
-            <Profile user={user} photos={state.photos} />
           </div>
         </div>
       </div>
