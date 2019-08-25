@@ -5,13 +5,29 @@ import { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, PORT } from '../config'
 import { findOrCreate } from '../database/user'
 import { User } from '../database/schema'
 
+import session from 'express-session'
+
+const MongoDBStore = require('connect-mongodb-session')(session)
+
 function authentication(app) {
+  const store = new MongoDBStore({
+    uri: process.env.DB_CONNECTION_STRING,
+    collection: 'sessions'
+  })
+
+  store.on('error', function(error) {
+    console.log(error)
+  })
+
   app.use(
     require('express-session')({
       secret: process.env.EXPRESS_SESSION_SECRET,
-      resave: false,
+      resave: true,
       saveUninitialized: true,
-      cookie: { httpOnly: true, maxAge: 2419200000 }
+      store,
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+      }
     })
   )
   app.use(passport.initialize())
