@@ -1,5 +1,5 @@
+import { Express } from 'express'
 import momentsRouter from './moments.routes'
-import usersRouter from './users.routes'
 import storeRoutes from './store.routes'
 import paymentRoutes from './payment.routes'
 import basketRoutes from './basket.routes'
@@ -9,9 +9,8 @@ import tokenRoutes from './token.routes'
 
 const BASE_API_URL = '/api'
 
-function Router(app) {
+function Router(app: Express) {
   app.use(`${BASE_API_URL}/moments`, momentsRouter)
-  app.use(`${BASE_API_URL}/users`, usersRouter)
   app.use(`${BASE_API_URL}/store`, storeRoutes)
   app.use(`${BASE_API_URL}/payment`, paymentRoutes)
   app.use(`${BASE_API_URL}/basket`, basketRoutes)
