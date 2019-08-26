@@ -50,25 +50,13 @@ function deleteAsync(url: string, body: any) {
   return callFetchAsync(url, 'DELETE', body)
 }
 
-async function uploadPhotoAsync(apiUrl: string, uri: string) {
-  const uriParts = uri.split('.')
-  const filename = uriParts[uriParts.length - 2]
-  const fileType = uriParts[uriParts.length - 1]
-
+async function uploadPhotoAsync(apiUrl: string, filename: string, blob: Blob) {
   const formData = new FormData()
-  formData.append('photo', {
-    uri,
-    name: `${filename}.${fileType}`,
-    type: `image/${fileType}`
-  })
+  formData.append('photo', blob, filename)
 
   const options = {
     method: 'POST',
-    body: formData,
-    headers: new Headers({
-      Accept: 'application/json',
-      'Content-Type': 'multipart/form-data'
-    })
+    body: formData
   }
 
   const response = await fetch(`${getServerApiUrl()}${apiUrl}`, options)

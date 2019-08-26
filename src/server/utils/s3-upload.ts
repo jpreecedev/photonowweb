@@ -2,9 +2,6 @@ import aws from 'aws-sdk'
 import multer from 'multer'
 import multerS3 from 'multer-s3-transform'
 import sharp from 'sharp'
-import { join } from 'path'
-
-const watermark = join(__dirname, '../../../assets/watermark.png')
 
 const BUCKET = process.env.AWS_BUCKET
 
@@ -37,12 +34,7 @@ const upload = (resize, setMetadata, setKey) => {
       id: 'resized',
       ...multerMetadata,
       transform: (_req, _file, cb) => {
-        cb(
-          null,
-          sharp()
-            .resize(200)
-            .composite([{ input: watermark, gravity: 'center', blend: 'overlay' }])
-        )
+        cb(null, sharp().resize(200))
       }
     })
   }

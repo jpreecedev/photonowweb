@@ -41,4 +41,19 @@ describe('Add or update user tests', () => {
 
     expect(result.businessName).toEqual(user.businessName)
   })
+
+  test('should update an existing user', async () => {
+    const updatedUser = {
+      id: testData.users[0].id,
+      selectedPhoto: 'UPDATED PHOTO'
+    }
+
+    const result = await addOrUpdate(updatedUser)
+
+    expect(result).toBeDefined()
+    expect(result.id).toEqual(testData.users[0].id)
+    expect(result.displayName).toEqual(testData.users[0].displayName)
+    expect(result.username).toEqual(testData.users[0].username)
+    expect(result.selectedPhoto).toEqual(updatedUser.selectedPhoto)
+  })
 })

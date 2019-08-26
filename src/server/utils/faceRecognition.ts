@@ -1,9 +1,8 @@
-const AWS = require('aws-sdk')
+import AWS from 'aws-sdk'
 const rekognition = new AWS.Rekognition({ region: process.env.AWS_REGION })
-
-require('dotenv').config()
-
 AWS.config.region = process.env.AWS_REGION
+
+const collectionName = process.env.FACE_RECOGNITION_COLLECTION_NAME || ''
 
 async function listCollections(): Promise<AWS.Rekognition.ListCollectionsResponse> {
   return new Promise((resolve, reject) => {
@@ -29,16 +28,46 @@ async function createCollection(collectionName) {
   })
 }
 
-async function addImageToCollection(filename: string, file: Buffer) {
+async function recognise(bucket: string, filename: string) {
+  return new Promise((resolve, reject) => {
+    rekognition.searchFacesByImage(
+      {
+        CollectionId: collectionName,
+        FaceMatchThreshold: 95,
+        Image: {
+          S3Object: {
+            Bucket: bucket,
+            Name: filename
+          }
+        },
+        MaxFaces: 1
+      },
+      function(err, data) {
+        if (err) {
+          return reject(err)
+        }
+        if (data.FaceMatches && data.FaceMatches.length > 0 && data.FaceMatches[0].Face) {
+          return resolve(data.FaceMatches[0].Face)
+        }
+        return reject('Not recognized')
+      }
+    )
+  })
+}
+
+async function addImageToCollection(bucket: string, s3Filename: string) {
   return new Promise((resolve, reject) => {
     const collectionName = process.env.FACE_RECOGNITION_COLLECTION_NAME || ''
 
     rekognition.indexFaces(
       {
         CollectionId: collectionName,
-        ExternalImageId: filename,
+        ExternalImageId: s3Filename,
         Image: {
-          Bytes: file
+          S3Object: {
+            Bucket: bucket,
+            Name: s3Filename
+          }
         }
       },
       err => {
@@ -67,4 +96,4 @@ async function addImageToCollection(filename: string, file: Buffer) {
   }
 })()
 
-module.exports = { addImageToCollection }
+export default { addImageToCollection, recognise }

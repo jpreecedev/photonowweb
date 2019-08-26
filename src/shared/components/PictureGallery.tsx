@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function PictureGallery({ pictures }) {
+function PictureGallery({ pictures, onSelectionChanged }) {
   const classes = useStyles()
   const theme = useTheme()
   const [activeStep, setActiveStep] = React.useState(0)
@@ -46,11 +46,17 @@ function PictureGallery({ pictures }) {
   const maxSteps = pictures.length
 
   function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1)
+    setActiveStep(prevActiveStep => {
+      onSelectionChanged(pictures[prevActiveStep + 1])
+      return prevActiveStep + 1
+    })
   }
 
   function handleBack() {
-    setActiveStep(prevActiveStep => prevActiveStep - 1)
+    setActiveStep(prevActiveStep => {
+      onSelectionChanged(pictures[prevActiveStep - 1])
+      return prevActiveStep - 1
+    })
   }
 
   return (

@@ -66,26 +66,26 @@ declare global {
   declare const FB: any
 
   interface Profile {
-    id: String
-    displayName: String
-    username: String
-    email: String
+    id: string
+    displayName: string
+    username: string
+    email: string
   }
 
   interface IUser extends Document {
-    id: String
-    accessToken?: String
-    refreshToken?: String
-    provider?: String
-    businessName?: String
-    address?: String
+    id: string
+    accessToken?: string
+    refreshToken?: string
+    provider?: string
+    businessName?: string
+    address?: string
     lat?: Number
     lng?: Number
-    email?: String
-    displayName?: String
-    username?: String
-    selectedPhoto?: String
-    stripeCustomerId?: String
+    email?: string
+    displayName?: string
+    username?: string
+    selectedPhoto?: string
+    stripeCustomerId?: string
   }
 
   interface OrderParams {
@@ -107,16 +107,17 @@ declare global {
   }
 
   type UploadedFile = {
-    originalname: String
-    mimetype: String
+    originalname: string
+    mimetype: string
     transforms: TransformedFile[]
   }
 
   type TransformedFile = {
-    id: String
-    bucket: String
-    contentType: String
-    location: String
-    etag: String
+    id: string
+    bucket: string
+    contentType: string
+    location: string
+    etag: string
+    key: string
   }
 }

@@ -3,11 +3,13 @@ import StoreController from './store.controller'
 import PaymentController from './payment.controller'
 import BasketController from './basket.controller'
 import OrdersController from './orders.controller'
+import FaceController from './face.controller'
 
 export {
   MomentsController,
   StoreController,
   PaymentController,
   BasketController,
-  OrdersController
+  OrdersController,
+  FaceController
 }
