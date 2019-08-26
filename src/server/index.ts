@@ -10,7 +10,7 @@ import paths from '../../config/paths'
 import errorHandler from './middleware/errorHandler'
 import serverRenderer from './middleware/serverRenderer'
 import { connectToDatabase } from './database/connection'
-import { authentication } from './utils/authentication'
+import { authenticationMiddleware } from './strategies'
 
 require('dotenv').config()
 
@@ -31,7 +31,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-authentication(app)
+authenticationMiddleware(app)
 router(app)
 
 const manifestPath = path.join(paths.clientBuild, paths.publicPath)
