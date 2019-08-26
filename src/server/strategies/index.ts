@@ -4,6 +4,7 @@ import { Express } from 'express'
 
 import { User } from '../database/schema'
 import { initialise as initialiseFacebook } from './facebook'
+import { initialise as initialiseLocal } from './local'
 
 function authenticationMiddleware(app: Express) {
   const MongoDBStore = require('connect-mongodb-session')(session)
@@ -41,6 +42,7 @@ function authenticationMiddleware(app: Express) {
   })
 
   initialiseFacebook()
+  initialiseLocal()
 }
 
 export { authenticationMiddleware }

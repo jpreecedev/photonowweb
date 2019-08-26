@@ -74,6 +74,8 @@ declare global {
 
   interface IUser extends Document {
     id: string
+    username?: string
+    password?: string
     accessToken?: string
     refreshToken?: string
     provider?: string
@@ -82,8 +84,9 @@ declare global {
     lat?: Number
     lng?: Number
     email?: string
+    firstName?: string
+    lastName?: string
     displayName?: string
-    username?: string
     selectedPhoto?: string
     stripeCustomerId?: string
   }

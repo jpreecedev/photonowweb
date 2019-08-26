@@ -20,6 +20,11 @@ async function callFetchAsync(
     options.body = JSON.stringify(body)
   }
 
+  const token = await getFromStorageAsync('jwtoken')
+  if (token) {
+    options.headers.append('Authorization', `Bearer ${token}`)
+  }
+
   const response = await fetch(`${getServerApiUrl()}${url}`, {
     method,
     ...options

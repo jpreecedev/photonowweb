@@ -1,4 +1,4 @@
-import { getUser } from '../../user'
+import { getUser, getUserBy } from '../../user'
 import { sanitizeData } from '../../test-utils'
 import TestDbHelper from '../../../../../config/jest/mongo-setup'
 
@@ -48,5 +48,39 @@ describe('Add or update user tests', () => {
     expect(result.username).toEqual(user.username)
     expect(result.selectedPhoto).toEqual(user.selectedPhoto)
     expect(result.provider).toEqual(user.provider)
+  })
+
+  test('should get the specified user by username', async () => {
+    const username = 'Test Username'
+
+    const result = await getUserBy({ username })
+
+    expect(result).toBeDefined()
+    expect(result.provider).toEqual(testData.users[0].provider)
+    expect(result.businessName).toEqual(testData.users[0].businessName)
+    expect(result.address).toEqual(testData.users[0].address)
+    expect(result.username).toEqual(testData.users[0].username)
+    expect(result.selectedPhoto).toEqual(testData.users[0].selectedPhoto)
+  })
+
+  test('should get the specified user by id', async () => {
+    const id = '8a8b8f06cd5'
+
+    const result = await getUserBy({ id })
+
+    expect(result).toBeDefined()
+    expect(result.provider).toEqual(testData.users[0].provider)
+    expect(result.businessName).toEqual(testData.users[0].businessName)
+    expect(result.address).toEqual(testData.users[0].address)
+    expect(result.username).toEqual(testData.users[0].username)
+    expect(result.selectedPhoto).toEqual(testData.users[0].selectedPhoto)
+  })
+
+  test('should not get the specified user when username is invalid', async () => {
+    const username = 'Some other username'
+
+    const result = await getUserBy({ username })
+
+    expect(result).toBeFalsy()
   })
 })

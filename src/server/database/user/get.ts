@@ -6,4 +6,10 @@ async function getUser(id) {
   }).exec()
 }
 
-export { getUser }
+async function getUserBy({ ...rest }) {
+  return await User.findOne({
+    ...rest
+  }).exec()
+}
+
+export { getUser, getUserBy }

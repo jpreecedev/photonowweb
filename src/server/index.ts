@@ -12,6 +12,8 @@ import serverRenderer from './middleware/serverRenderer'
 import { connectToDatabase } from './database/connection'
 import { authenticationMiddleware } from './strategies'
 
+import './db'
+
 require('dotenv').config()
 
 const app = express.default()
