@@ -1,57 +1,66 @@
 import React from 'react'
-import classNames from 'classnames'
 import withStyles from '@material-ui/core/styles/withStyles'
-import Header from '../../shared/components/Header'
-import Footer from '../../shared/components/Footer'
-import GridContainer from '../../shared/components/GridContainer'
-import GridItem from '../../shared/components/GridItem'
-import Parallax from '../../shared/components/Parallax'
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import { Link } from 'react-router-dom'
+
 import { landingPageStyle } from '../../pages/LandingPage/style'
 
-import ProductSection from './Sections/ProductSection'
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    margin: {
+      margin: theme.spacing(1)
+    },
+    buttonBottom: {
+      marginBottom: '20rem'
+    }
+  })
+)
 
-const dashboardRoutes = []
-
-function LandingPage({ classes, ...rest }) {
+function LandingPage({ ...rest }) {
+  const classes = useStyles()
   return (
-    <div>
-      <Header
-        color="transparent"
-        routes={dashboardRoutes}
-        brand="PhotoNow"
-        fixed
-        changeColorOnScroll={{
-          height: 400,
-          color: 'white'
+    <>
+      <div
+        style={{
+          textAlign: 'center',
+          background: `linear-gradient(to bottom,rgba(92,77,66,.8) 0,rgba(92,77,66,.8) 100%),url('${require('../../../assets/background.jpg')}')`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'scroll',
+          backgroundSize: 'cover',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column'
         }}
-        {...rest}
-      />
-      <Parallax filter image={require('../../../assets/crowd.png')}>
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>PhotoNow.app</h1>
-              <h4>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-                obcaecati dolor debitis voluptates eligendi minus quaerat! Dolorum,
-                sapiente! Animi dolore sequi vero quod est? Pariatur officiis vitae quam
-                velit consectetur.
-              </h4>
-            </GridItem>
-          </GridContainer>
+      >
+        <div>
+          <img
+            src={require('../../../assets/oktoberfest.png')}
+            alt="Oktoberfest"
+            style={{
+              maxHeight: '300px',
+              width: 'auto',
+              height: 'auto'
+            }}
+          />
         </div>
-      </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div className={classes.container}>
-          <ProductSection />
-          <ProductSection />
-          <ProductSection />
-          <ProductSection />
-          <ProductSection />
+
+        <div className={classes.buttonBottom}>
+          <Button
+            component={Link}
+            to="/sign-in"
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.margin}
+          >
+            Get Started
+          </Button>
         </div>
       </div>
-      <Footer />
-    </div>
+    </>
   )
 }
 

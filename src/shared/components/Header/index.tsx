@@ -63,28 +63,7 @@ function Header({
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
-        {leftLinks !== undefined ? brandComponent : null}
-        <div className={classes.flex}>
-          {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
-              {leftLinks}
-            </Hidden>
-          ) : (
-            brandComponent
-          )}
-        </div>
-        <Hidden smDown implementation="css">
-          {rightLinks}
-        </Hidden>
-        <Hidden mdUp>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-          >
-            <Menu />
-          </IconButton>
-        </Hidden>
+        <div className={classes.flex}>{brandComponent}</div>
       </Toolbar>
       <Hidden mdUp implementation="js">
         <Drawer
