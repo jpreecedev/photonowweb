@@ -13,6 +13,7 @@ import { SignUp } from './components/SignUp'
 import { Checkout } from './components/Checkout'
 import { LoginFailed } from './components/LoginFailed'
 import { Setup } from './components/Setup'
+import Face from './components/Face'
 
 function App() {
   const [state, setState] = React.useState({ stripe: null })
@@ -44,6 +45,7 @@ function App() {
         <Route path="/sign-up" component={SignUp} />
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/login-failed" exact component={LoginFailed} />
+        <Route path="/face" component={Face} />
         <SecureRoute path="/checkout" component={Checkout} />
         <SecureRoute path="/profile" exact component={ProfilePage} />
         <SecureRoute path="/setup" exact component={Setup} />
