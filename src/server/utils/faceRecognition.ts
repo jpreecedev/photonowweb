@@ -50,12 +50,19 @@ async function recogniseFromBuffer(image: Buffer) {
             (a, b) => b.Face.Confidence - a.Face.Confidence
           )
 
-          console.log(sorted)
+          const matchSet = new Set()
+          sorted.forEach(match => matchSet.add(match.Face.ExternalImageId))
 
-          const matchingId = Types.ObjectId(sorted[0].Face.ExternalImageId)
-          const matchingMoment = await getMoment(matchingId)
+          const moments = await Promise.all(
+            Array.from(matchSet).map(s => getMoment(Types.ObjectId(s.toString())))
+          )
 
-          return resolve(matchingMoment)
+          return resolve(
+            moments.map(moment => ({
+              label: moment.filename,
+              url: moment.resizedLocation
+            }))
+          )
         }
         return reject('Not recognized')
       }

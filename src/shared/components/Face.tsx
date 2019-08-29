@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/styles'
 import GridContainer from './GridContainer'
 import GridItem from './GridItem'
 import { server } from '../../client/services'
+import { PictureGallery } from './PictureGallery'
 
 const styles = theme => ({
   paper: {
@@ -46,7 +47,7 @@ class Face extends React.Component {
   webcam: any
   Webcam: any
 
-  state = { loaded: false, uploading: false }
+  state = { loaded: false, uploading: false, pictures: [] }
 
   constructor(props) {
     super(props)
@@ -72,13 +73,13 @@ class Face extends React.Component {
     const blob = b64toBlob(imageSrc[1], contentType)
     this.setState({ uploading: true }, async () => {
       const result = await server.uploadPhotoAsync('/face', 'A Face', blob)
-      console.log(result)
+      this.setState({ pictures: result })
     })
   }
 
   render() {
     const { classes } = this.props
-    const { uploading } = this.state
+    const { uploading, pictures } = this.state
 
     if (__SERVER__) {
       return null
@@ -121,6 +122,11 @@ class Face extends React.Component {
             </GridItem>
           </GridContainer>
         </Paper>
+        {pictures && pictures.length > 0 && (
+          <Paper>
+            <PictureGallery pictures={pictures} onSelectionChanged={() => {}} />
+          </Paper>
+        )}
       </Container>
     )
   }
