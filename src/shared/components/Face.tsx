@@ -4,10 +4,11 @@ import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-
 import { withStyles } from '@material-ui/styles'
+
 import GridContainer from './GridContainer'
 import GridItem from './GridItem'
+import { server } from '../../client/services'
 
 const styles = theme => ({
   paper: {
@@ -36,8 +37,8 @@ const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
 }
 
 const videoConstraints = {
-  width: 720,
-  height: 576,
+  width: 300,
+  height: 400,
   facingMode: 'user'
 }
 
@@ -45,7 +46,7 @@ class Face extends React.Component {
   webcam: any
   Webcam: any
 
-  state = { loaded: false }
+  state = { loaded: false, uploading: false }
 
   constructor(props) {
     super(props)
@@ -69,11 +70,15 @@ class Face extends React.Component {
 
     const contentType = 'image/jpeg'
     const blob = b64toBlob(imageSrc[1], contentType)
-    console.log(blob)
+    this.setState({ uploading: true }, async () => {
+      const result = await server.uploadPhotoAsync('/face', 'A Face', blob)
+      console.log(result)
+    })
   }
 
   render() {
     const { classes } = this.props
+    const { uploading } = this.state
 
     if (__SERVER__) {
       return null
@@ -100,10 +105,12 @@ class Face extends React.Component {
                 screenshotFormat="image/jpeg"
                 width={videoConstraints.width}
                 videoConstraints={videoConstraints}
+                screenshotQuality={1}
               />
             </GridItem>
             <GridItem>
               <Button
+                disabled={uploading}
                 size="large"
                 color="primary"
                 variant="contained"

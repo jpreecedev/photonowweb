@@ -1,7 +1,6 @@
-import { RequestWithFile } from 'global'
 import { Response } from 'express'
 import { create } from '../database/moments'
-import { errors } from '../utils'
+import { errors, faceRecognition } from '../utils'
 
 async function post(req: RequestWithFile, res: Response) {
   try {
@@ -31,6 +30,12 @@ async function post(req: RequestWithFile, res: Response) {
     }
 
     const result = await create(moment)
+
+    await faceRecognition.addImageToCollection(
+      originalFile.bucket,
+      result._id.toString(),
+      originalFile.key
+    )
 
     return res.status(200).send({
       location: result.location

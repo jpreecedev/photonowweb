@@ -1,4 +1,7 @@
 import AWS from 'aws-sdk'
+import { Types } from 'mongoose'
+import { getMoment } from '../database/moments'
+
 const rekognition = new AWS.Rekognition({ region: process.env.AWS_REGION })
 AWS.config.region = process.env.AWS_REGION
 
@@ -25,6 +28,38 @@ async function createCollection(collectionName) {
 
       return resolve(data)
     })
+  })
+}
+
+async function recogniseFromBuffer(image: Buffer) {
+  return new Promise((resolve, reject) => {
+    rekognition.searchFacesByImage(
+      {
+        CollectionId: collectionName,
+        FaceMatchThreshold: 95,
+        Image: { Bytes: image },
+        MaxFaces: 5
+      },
+      async (err, data) => {
+        if (err) {
+          return reject(err)
+        }
+
+        if (data.FaceMatches && data.FaceMatches.length > 0 && data.FaceMatches[0].Face) {
+          const sorted = data.FaceMatches.sort(
+            (a, b) => b.Face.Confidence - a.Face.Confidence
+          )
+
+          console.log(sorted)
+
+          const matchingId = Types.ObjectId(sorted[0].Face.ExternalImageId)
+          const matchingMoment = await getMoment(matchingId)
+
+          return resolve(matchingMoment)
+        }
+        return reject('Not recognized')
+      }
+    )
   })
 }
 
@@ -55,14 +90,30 @@ async function recognise(bucket: string, filename: string) {
   })
 }
 
-async function addImageToCollection(bucket: string, s3Filename: string) {
+async function verifyFace(image: Buffer) {
+  return new Promise((resolve, reject) => {
+    rekognition.detectFaces({ Image: { Bytes: image } }, (err, response) => {
+      if (err) {
+        return reject(err)
+      }
+
+      resolve(response.FaceDetails.length === 1)
+    })
+  })
+}
+
+async function addImageToCollection(
+  bucket: string,
+  momentId: string,
+  s3Filename: string
+) {
   return new Promise((resolve, reject) => {
     const collectionName = process.env.FACE_RECOGNITION_COLLECTION_NAME || ''
 
     rekognition.indexFaces(
       {
         CollectionId: collectionName,
-        ExternalImageId: s3Filename,
+        ExternalImageId: momentId,
         Image: {
           S3Object: {
             Bucket: bucket,
@@ -83,17 +134,19 @@ async function addImageToCollection(bucket: string, s3Filename: string) {
 ;(async () => {
   const collectionName = process.env.FACE_RECOGNITION_COLLECTION_NAME
   const collections = await listCollections()
-
   const hasCollections =
     collections && collections.CollectionIds && collections.CollectionIds.length
-
   const collectionIds = hasCollections ? collections.CollectionIds : []
-
   const hasCollection = collectionIds.find(c => c === collectionName)
+
+  // rekognition.deleteCollection(
+  //   { CollectionId: process.env.FACE_RECOGNITION_COLLECTION_NAME },
+  //   () => {}
+  // )
 
   if (!hasCollection) {
     await createCollection(collectionName)
   }
 })()
 
-export default { addImageToCollection, recognise }
+export default { addImageToCollection, recognise, recogniseFromBuffer, verifyFace }

@@ -1,0 +1,11 @@
+{
+  "moments": [
+    {
+      "_id": "9ccc2370562b178fdfa1be11",
+      "photographerId": "3ded5390565b398edea3be93",
+      "filename": "filename2",
+      "resizedLocation": "resizedLocation2",
+      "mimeType": "mimeType2"
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+import { getItem } from './localStorage'
+
 function getServerApiUrl() {
   return process.env.SERVER_API_URL.toString()
 }
@@ -20,7 +22,7 @@ async function callFetchAsync(
     options.body = JSON.stringify(body)
   }
 
-  const token = await getFromStorageAsync('jwtoken')
+  const token = getItem('jwtoken')
   if (token) {
     options.headers.append('Authorization', `Bearer ${token}`)
   }

@@ -1,19 +1,18 @@
 import express from 'express'
-import uuid from 'uuid/v4'
-import { FaceController } from '../controllers'
-import { s3Upload, authorisation } from '../utils'
+import multer from 'multer'
+import { faceRecognition } from '../utils'
 
 const router = express.Router()
+const upload = multer()
 
-router.post(
-  '/',
-  authorisation.basic,
-  s3Upload.uploadFromClient(
-    false,
-    file => ({ filename: file.originalname }),
-    file => `${uuid()}${file.originalname.substring(file.originalname.lastIndexOf('.'))}`
-  ),
-  FaceController.post
-)
+router.post('/', upload.single('photo'), async (req: RequestWithFile, res, next) => {
+  const response = await faceRecognition.verifyFace(req.file.buffer)
+  if (response) {
+    const recogniseFromBuffer = await faceRecognition.recogniseFromBuffer(req.file.buffer)
+
+    return res.status(200).json(recogniseFromBuffer)
+  }
+  return res.status(500).json({})
+})
 
 export default router

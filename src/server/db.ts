@@ -13,7 +13,7 @@
 //   users.forEach(u => console.log(u))
 // })
 
-// Moment.deleteMany({}).then((err, res) => console.log(err) )
+// Moment.deleteMany({}).then((err, res) => console.log(err))
 
 // 5d0f409ed5af3b5f8ea22e5c
 

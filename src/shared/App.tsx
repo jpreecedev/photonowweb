@@ -13,6 +13,7 @@ import { SignUp } from './components/SignUp'
 import { Checkout } from './components/Checkout'
 import { LoginFailed } from './components/LoginFailed'
 import { Setup } from './components/Setup'
+import { FileUpload } from './components/FileUpload'
 import Face from './components/Face'
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/login-failed" exact component={LoginFailed} />
         <Route path="/face" component={Face} />
+        <SecureRoute path="/upload" component={FileUpload} />
         <SecureRoute path="/checkout" component={Checkout} />
         <SecureRoute path="/profile" exact component={ProfilePage} />
         <SecureRoute path="/setup" exact component={Setup} />

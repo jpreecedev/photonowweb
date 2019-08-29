@@ -113,6 +113,7 @@ declare global {
     originalname: string
     mimetype: string
     transforms: TransformedFile[]
+    buffer: Buffer
   }
 
   type TransformedFile = {

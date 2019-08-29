@@ -28,7 +28,6 @@ function useSecureRoute() {
 
 const SecureRoute = ({ component: Component, ...rest }) => {
   const { complete, authenticated, user } = useSecureRoute()
-
   return (
     <Route
       {...rest}

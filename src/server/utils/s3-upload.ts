@@ -53,6 +53,6 @@ const upload = (resize, setMetadata, setKey) => {
 }
 
 const uploadFromClient = (resize, setMetadata, setKey) => (req, res, next) =>
-  upload(resize, setMetadata, setKey).single('photo')(req, res, next)
+  upload(resize, setMetadata, setKey).single('filepond')(req, res, next)
 
 export default { uploadFromClient }
