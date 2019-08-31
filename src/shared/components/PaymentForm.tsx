@@ -1,4 +1,5 @@
 import React from 'react'
+import { Field, reduxForm } from 'redux-form'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
@@ -6,6 +7,8 @@ import { Elements, CardExpiryElement, CardCVCElement } from 'react-stripe-elemen
 import { StripeTextField } from './StripeTextField'
 import { CardNumberElement } from 'react-stripe-elements'
 import { StripeInput } from './StripeInput'
+
+import { renderTextField } from './ReduxForm'
 
 const PaymentForm = () => (
   <Elements>
@@ -15,10 +18,22 @@ const PaymentForm = () => (
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label="Name on card" fullWidth />
+          <Field
+            required
+            id="cardName"
+            name="cardName"
+            label="Name on card"
+            fullWidth
+            component={renderTextField}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
-          <StripeTextField label="Credit Card Number" component={CardNumberElement} />
+          <StripeTextField
+            label="Credit Card Number"
+            id="cardNumber"
+            name="cardNumber"
+            component={CardNumberElement}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -60,4 +75,6 @@ const PaymentForm = () => (
   </Elements>
 )
 
-export { PaymentForm }
+export default reduxForm({
+  form: 'PaymentForm'
+})(PaymentForm)

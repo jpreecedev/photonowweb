@@ -123,7 +123,9 @@ function AddressForm({ handleSubmit }) {
                   -- Please Select --
                 </option>
                 {state.map(option => (
-                  <option value={option.value}>{option.label}</option>
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
                 ))}
               </Field>
             </FormControl>

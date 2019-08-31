@@ -1,6 +1,8 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField'
+import { Field } from 'redux-form'
+
 import { StripeInput } from './StripeInput'
+import { renderTextField } from './ReduxForm'
 
 const StripeTextField = ({
   InputLabelProps,
@@ -9,10 +11,11 @@ const StripeTextField = ({
   label,
   labelErrorMessage,
   component,
-  error
+  error,
+  ...custom
 }) => {
   return (
-    <TextField
+    <Field
       required
       fullWidth={fullWidth}
       label={error ? labelErrorMessage || `Invalid ${label}` : label}
@@ -28,6 +31,8 @@ const StripeTextField = ({
         },
         inputComponent: StripeInput
       }}
+      component={renderTextField}
+      {...custom}
     />
   )
 }

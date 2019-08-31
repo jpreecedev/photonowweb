@@ -30,7 +30,7 @@ function Basket({ basket }) {
       <Button
         size="small"
         color="primary"
-        to="/basket"
+        to="/checkout"
         variant="outlined"
         component={Link}
       >
