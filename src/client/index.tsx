@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/styles'
 
 import App from '../shared/App'
 import { theme } from '../shared/Theme'
+import { StateProvider } from '../client/store'
 
 function Main() {
   React.useEffect(() => {
@@ -16,9 +17,11 @@ function Main() {
 
   return (
     <Router>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <StateProvider>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </StateProvider>
     </Router>
   )
 }

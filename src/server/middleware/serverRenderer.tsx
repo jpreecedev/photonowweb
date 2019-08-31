@@ -3,19 +3,23 @@ import * as express from 'express'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter as Router } from 'react-router-dom'
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles'
+
 import App from '../../shared/App'
 import Html from '../components/HTML'
 import { theme } from '../../shared/Theme'
+import { StateProvider } from '../../client/store'
 
 const serverRenderer: any = () => (req: express.Request, res: express.Response) => {
   const sheets = new ServerStyleSheets()
   const content = renderToString(
     sheets.collect(
-      <ThemeProvider theme={theme}>
-        <Router location={req.url} context={{}}>
-          <App />
-        </Router>
-      </ThemeProvider>
+      <StateProvider>
+        <ThemeProvider theme={theme}>
+          <Router location={req.url} context={{}}>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </StateProvider>
     )
   )
 

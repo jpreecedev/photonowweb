@@ -9,7 +9,8 @@ import { withStyles } from '@material-ui/styles'
 import GridContainer from './GridContainer'
 import GridItem from './GridItem'
 import { server } from '../../client/services'
-import { PictureGallery } from './PictureGallery'
+import Album from './Album'
+import Basket from './Basket'
 
 const styles = theme => ({
   paper: {
@@ -37,6 +38,33 @@ const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
   return blob
 }
 
+const defaultPictures = [
+  {
+    momentId: '5d6a029e65af2c56f900c6f5',
+    url:
+      'https://photonow-api-test-bucket.s3.us-east-2.amazonaws.com/fc662a3d-20e1-4c4f-80de-0b2458c84d40.jpg',
+    label: '1'
+  },
+  {
+    momentId: '5d6a039b3ea2af58200738c4',
+    url:
+      'https://photonow-api-test-bucket.s3.us-east-2.amazonaws.com/7a2016a6-8402-45f2-93b7-f0b6cb161663.jpg',
+    label: '2'
+  },
+  {
+    momentId: '5d681fe8d4df273f117ca1e2',
+    url:
+      'https://photonow-api-test-bucket.s3.us-east-2.amazonaws.com/8ded667e-2b2e-43d9-a5b8-b307e7fa03c4.jpg',
+    label: '3'
+  },
+  {
+    momentId: '5d6816f29318b8398bd8cdc4',
+    url:
+      'https://photonow-api-test-bucket.s3.us-east-2.amazonaws.com/eac5c6d6-45bb-4b6f-86cd-ccaae69e1c0a.jpg',
+    label: '4'
+  }
+]
+
 const videoConstraints = {
   width: 300,
   height: 400,
@@ -47,7 +75,7 @@ class Face extends React.Component {
   webcam: any
   Webcam: any
 
-  state = { loaded: false, uploading: false, pictures: [] }
+  state = { loaded: false, uploading: false, pictures: defaultPictures }
 
   constructor(props) {
     super(props)
@@ -124,7 +152,8 @@ class Face extends React.Component {
         </Paper>
         {pictures && pictures.length > 0 && (
           <Paper>
-            <PictureGallery pictures={pictures} onSelectionChanged={() => {}} />
+            <Basket />
+            <Album pictures={pictures} />
           </Paper>
         )}
       </Container>
