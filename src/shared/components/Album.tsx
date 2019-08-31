@@ -52,7 +52,7 @@ function Album({ pictures, dispatch }) {
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
           {pictures.map(picture => (
-            <Grid item key={picture._id} xs={12} sm={6} md={4}>
+            <Grid item key={picture.url} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
