@@ -2,8 +2,10 @@ import aws from 'aws-sdk'
 import multer from 'multer'
 import multerS3 from 'multer-s3-transform'
 import sharp from 'sharp'
+import resolveApp from '../../../config/utils'
 
 const BUCKET = process.env.AWS_BUCKET
+const watermark = resolveApp('./assets/watermark.png')
 
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -34,7 +36,12 @@ const upload = (resize, setMetadata, setKey) => {
       id: 'resized',
       ...multerMetadata,
       transform: (_req, _file, cb) => {
-        cb(null, sharp().resize(200))
+        cb(
+          null,
+          sharp()
+            .resize(250)
+            .composite([{ input: watermark, gravity: 'center', blend: 'overlay' }])
+        )
       }
     })
   }
