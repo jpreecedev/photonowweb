@@ -61,7 +61,8 @@ async function recogniseFromBuffer(image: Buffer) {
             moments.map(moment => ({
               momentId: moment._id,
               label: moment.filename,
-              url: moment.resizedLocation
+              url: moment.resizedLocation,
+              price: 499
             }))
           )
         }

@@ -47,10 +47,10 @@ function App() {
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/login-failed" exact component={LoginFailed} />
         <Route path="/face" component={Face} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/profile" exact component={ProfilePage} />
+        <Route path="/setup" exact component={Setup} />
         <SecureRoute path="/upload" component={FileUpload} />
-        <SecureRoute path="/checkout" component={Checkout} />
-        <SecureRoute path="/profile" exact component={ProfilePage} />
-        <SecureRoute path="/setup" exact component={Setup} />
       </>
     </StripeProvider>
   )
