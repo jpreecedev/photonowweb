@@ -1,6 +1,6 @@
 import { Types } from 'mongoose'
 import { sanitizeData } from '../../test-utils'
-import { getOrderForCustomer, userHasOrder, orderHasMomentAdded } from '..'
+import { getOrderForCustomer, userHasOrder } from '..'
 import TestDbHelper from '../../../../../config/jest/mongo-setup'
 import { calculateOrderAmount } from '../utils'
 import { getMoments } from 'database/moments'
@@ -56,36 +56,6 @@ describe('Get order tests', () => {
     const hasOrder = await userHasOrder(customerId, orderId)
 
     expect(hasOrder).toBeFalsy()
-  })
-
-  test('should verify that the moment has not already been added to the order', async () => {
-    const customerId = Types.ObjectId('1cfc2370562b178fdfa1be91')
-    const orderId = Types.ObjectId('9aaa2370562a178fdfa1ae99')
-    const momentId = Types.ObjectId('9ddd2370562b178fdfa1be11')
-
-    const hasBeenAdded = await orderHasMomentAdded(customerId, orderId, momentId)
-
-    expect(hasBeenAdded).toBeFalsy()
-  })
-
-  test('should verify that the moment has already been added to the order', async () => {
-    const customerId = Types.ObjectId('1cfc2370562b178fdfa1be91')
-    const orderId = Types.ObjectId('9aaa2370562a178fdfa1ae99')
-    const momentId = Types.ObjectId('9ccc2370562b178fdfa1be11')
-
-    const hasBeenAdded = await orderHasMomentAdded(customerId, orderId, momentId)
-
-    expect(hasBeenAdded).toBeTruthy()
-  })
-
-  test('should verify that the order is verified before checking if moment has been added', async () => {
-    const customerId = Types.ObjectId('2cfc2370562b178fdfa1be91')
-    const orderId = Types.ObjectId('9aaa2370562a178fdfa1ae99')
-    const momentId = Types.ObjectId('9ccc2370562b178fdfa1be11')
-
-    const hasBeenAdded = await orderHasMomentAdded(customerId, orderId, momentId)
-
-    expect(hasBeenAdded).toBeFalsy()
   })
 
   test('should calculate the correct order amount', async () => {

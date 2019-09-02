@@ -3,8 +3,6 @@ import { errors } from '../utils'
 import {
   getOrderForCustomer,
   createOrder,
-  addMomentToOrder,
-  orderHasMomentAdded
 } from '../database/basket'
 
 async function get(req: RequestWithUser, res: Response) {
@@ -37,33 +35,6 @@ async function post(req: RequestWithUser, res: Response) {
     order = await createOrder(_id)
 
     return res.status(200).json(order)
-  } catch (e) {
-    errors.handle(e)
-    return res.status(500).send(e)
-  }
-}
-
-async function put(req: RequestWithUser, res: Response) {
-  try {
-    const { _id } = req.user
-    const { momentId } = req.body
-
-    const order = await getOrderForCustomer(_id)
-    if (!order) {
-      return res.status(404).json({ error: 'Order not found' })
-    }
-
-    if (await orderHasMomentAdded(_id, order._id, momentId)) {
-      return res.status(200).json(order)
-    }
-
-    const updatedOrder = await addMomentToOrder(_id, order._id, momentId)
-
-    if (!updatedOrder) {
-      return res.status(403).json({ error: 'Permission denied' })
-    }
-
-    return res.status(200).json(updatedOrder)
   } catch (e) {
     errors.handle(e)
     return res.status(500).send(e)
