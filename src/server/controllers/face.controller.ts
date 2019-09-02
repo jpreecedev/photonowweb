@@ -14,7 +14,6 @@ async function post(req: RequestWithFile, res: Response) {
     const { key } = originalFile
 
     const result = await faceRecognition.recognise(originalFile.bucket, key)
-    console.log(result)
 
     await addOrUpdate({
       id: req.user.id,

@@ -36,8 +36,6 @@ describe('Create payment tests', () => {
       purchased: new Date()
     }
 
-    console.log(newPayment)
-
     const paymentSaved = await create(newPayment)
 
     expect(paymentSaved).toBeTruthy()

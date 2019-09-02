@@ -51,7 +51,6 @@ function initialise() {
       },
       async (username: string, password: string, done: Function) => {
         try {
-          console.log(password, username)
           const user = await getUserBy({ username })
           if (!user) {
             return done(null, false, { message: 'Invalid login credentials' })
