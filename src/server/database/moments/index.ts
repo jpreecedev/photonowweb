@@ -1,4 +1,4 @@
 import { create } from './create'
-import { getMoment } from './get'
+import { getMoment, getMoments } from './get'
 
-export { create, getMoment }
+export { create, getMoment, getMoments }

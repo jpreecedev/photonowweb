@@ -1,23 +1,24 @@
 import React from 'react'
 import { fade, useTheme } from '@material-ui/core/styles'
 
-const StripeInput = ({
-  component: Component,
-  inputRef,
-  'aria-invalid': ariaInvalid,
-  'aria-describedby': ariaDescribeBy,
-  defaultValue,
-  required,
-  onKeyDown,
-  onKeyUp,
-  readOnly,
-  autoComplete,
-  autoFocus,
-  type,
-  name,
-  rows,
-  ...other
-}) => {
+function StripeInput(props) {
+  const {
+    component: Component,
+    inputRef,
+    'aria-invalid': ariaInvalid,
+    'aria-describedby': ariaDescribeBy,
+    defaultValue,
+    required,
+    onKeyDown,
+    onKeyUp,
+    readOnly,
+    autoComplete,
+    autoFocus,
+    type,
+    name,
+    rows,
+    ...other
+  } = props
   const theme = useTheme()
   const [mountNode, setMountNode] = React.useState(null)
 
@@ -28,16 +29,17 @@ const StripeInput = ({
     }),
     [mountNode]
   )
+
   return (
     <Component
       onReady={setMountNode}
       style={{
         base: {
           color: theme.palette.text.primary,
-          fontSize: `${theme.typography.htmlFontSize}px`,
+          fontSize: `${theme.typography.fontSize}px`,
           fontFamily: theme.typography.fontFamily,
           '::placeholder': {
-            display: fade(theme.palette.text.primary, 0.42)
+            color: fade(theme.palette.text.primary, 0.42)
           }
         },
         invalid: {

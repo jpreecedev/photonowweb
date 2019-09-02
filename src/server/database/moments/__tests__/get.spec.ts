@@ -1,4 +1,4 @@
-import { getMoment } from '../get'
+import { getMoment, getMoments } from '../get'
 import { sanitizeData } from '../../test-utils'
 import { Types } from 'mongoose'
 import TestDbHelper from '../../../../../config/jest/mongo-setup'
@@ -27,7 +27,7 @@ describe('Get moment tests', () => {
   test('should get the specified moment', async () => {
     const moment = {
       _id: testData.moments[0]._id,
-      photographerId: Types.ObjectId(testData.moments[0].photographerId),
+      photographerId: new Types.ObjectId(testData.moments[0].photographerId),
       filename: testData.moments[0].filename,
       resizedLocation: testData.moments[0].resizedLocation,
       mimeType: testData.moments[0].mimeType
@@ -40,5 +40,16 @@ describe('Get moment tests', () => {
     expect(result.filename).toEqual(moment.filename)
     expect(result.resizedLocation).toEqual(moment.resizedLocation)
     expect(result.mimeType).toEqual(moment.mimeType)
+  })
+
+  test('should get exactly 2 moments', async () => {
+    const moments = [testData.moments[1]._id, testData.moments[2]._id]
+
+    const result = await getMoments(moments)
+
+    expect(result).not.toBeUndefined()
+    expect(result.length).toEqual(2)
+    expect(result[0]._id.toString()).toEqual(moments[0].toString())
+    expect(result[1]._id.toString()).toEqual(moments[1].toString())
   })
 })

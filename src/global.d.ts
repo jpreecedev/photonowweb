@@ -1,5 +1,5 @@
 import { Request, NextFunction } from 'express'
-import { Document } from 'mongoose'
+import { Document, Types } from 'mongoose'
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -81,14 +81,70 @@ declare global {
     provider?: string
     businessName?: string
     address?: string
-    lat?: Number
-    lng?: Number
+    lat?: number
+    lng?: number
     email?: string
     firstName?: string
     lastName?: string
     displayName?: string
     selectedPhoto?: string
     stripeCustomerId?: string
+  }
+
+  interface IMoment extends Document {
+    photographerId: Types.ObjectId
+    filename: string
+    mimeType: string
+    bucket: string
+    contentType: string
+    location: string
+    originalEtag: string
+    resizedLocation: string
+    resizedEtag: string
+    amount: number
+  }
+
+  interface IOrder extends Document {
+    moments: Type.ObjectId[]
+    amount: number
+    name: string
+    email: string
+    addressLine1: string
+    addressLine2: string
+    city: string
+    postalCode: string
+    state: string
+    country: string
+  }
+
+  interface IStore extends Document {
+    photographerId: Types.ObjectId
+    singleImagePrice: number
+  }
+
+  interface IEnv {
+    HOST: string
+    PORT
+    DB_CONNECTION_STRING: string
+    FACEBOOK_APP_ID: string
+    FACEBOOK_APP_SECRET: string
+    DEFAULT_MOMENT_PRICE: number
+    STRIPE_SECRET_KEY: string
+    FACEBOOK_CALLBACK_URL: string
+    JWT_SECRET: string
+    JWT_ISSUER: string
+    JWT_AUDIENCE: string
+  }
+
+  interface IPayment extends Document {
+    orderId: Types.ObjectId
+    moments: Types.ObjectId[]
+    amount: number
+    paid: boolean
+    status: string
+    receipt: string
+    stripeCharge: any
+    purchased: Date
   }
 
   interface OrderParams {

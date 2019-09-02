@@ -1,10 +1,18 @@
-import { Schema } from 'mongoose'
+import { model, Model, Schema, Types } from 'mongoose'
 
 const OrderSchema = new Schema({
-  customerId: { type: Schema.Types.ObjectId, ref: 'User' },
-  moments: [{ type: Schema.Types.ObjectId, ref: 'Moment' }],
+  moments: [{ type: Types.ObjectId, ref: 'Moment' }],
   amount: Number,
-  closed: Boolean
+  name: String,
+  email: String,
+  addressLine1: String,
+  addressLine2: String,
+  city: String,
+  postalCode: String,
+  state: String,
+  country: String
 })
 
-export { OrderSchema }
+const Order: Model<IOrder> = model<IOrder>('Order', OrderSchema)
+
+export { Order }

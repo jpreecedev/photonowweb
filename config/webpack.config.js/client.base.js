@@ -35,7 +35,7 @@ module.exports = {
     child_process: 'empty'
   },
   optimization: {
-    concatenateModules: true,
+    concatenateModules: false,
     minimizer: [
       new TerserPlugin({
         // TerserPlugin config is taken entirely from react-scripts

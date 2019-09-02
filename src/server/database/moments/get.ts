@@ -5,4 +5,12 @@ async function getMoment(id: Types.ObjectId) {
   return await Moment.findById(id).exec()
 }
 
-export { getMoment }
+async function getMoments(ids: Types.ObjectId[]) {
+  return await Moment.find({
+    _id: {
+      $in: ids
+    }
+  }).exec()
+}
+
+export { getMoment, getMoments }

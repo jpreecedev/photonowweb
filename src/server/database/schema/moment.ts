@@ -1,7 +1,7 @@
-import { Schema } from 'mongoose'
+import { model, Model, Schema, Types } from 'mongoose'
 
 const MomentSchema = new Schema({
-  photographerId: { type: Schema.Types.ObjectId, ref: 'User' },
+  photographerId: { type: Types.ObjectId, ref: 'User' },
   filename: String,
   mimeType: String,
   bucket: String,
@@ -13,4 +13,6 @@ const MomentSchema = new Schema({
   amount: Number // Calculated field and almost certainly wrong!
 })
 
-export { MomentSchema }
+const Moment: Model<IMoment> = model<IMoment>('Moment', MomentSchema)
+
+export { Moment }

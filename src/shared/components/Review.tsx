@@ -33,41 +33,46 @@ const useStyles = makeStyles(theme => ({
 function Review({ basket, dispatch }) {
   const classes = useStyles()
   return (
-    <List disablePadding>
-      {basket.map(product => (
-        <ListItem className={classes.listItem} key={product.moment.label}>
-          <ListItemAvatar>
-            <Avatar
-              alt={product.moment.label}
-              src={product.moment.url}
-              className={classes.avatar}
+    <>
+      <Typography variant="h6" gutterBottom>
+        Shipping address
+      </Typography>
+      <List disablePadding>
+        {basket.map(product => (
+          <ListItem className={classes.listItem} key={product.moment.label}>
+            <ListItemAvatar>
+              <Avatar
+                alt={product.moment.label}
+                src={product.moment.url}
+                className={classes.avatar}
+              />
+            </ListItemAvatar>
+            <ListItemText
+              primary={product.moment.label}
+              secondary={`£${(product.moment.price / 100).toFixed(2)}`}
             />
-          </ListItemAvatar>
-          <ListItemText
-            primary={product.moment.label}
-            secondary={`£${(product.moment.price / 100).toFixed(2)}`}
-          />
-          <ListItemSecondaryAction>
-            <IconButton
-              edge="end"
-              aria-label="delete"
-              onClick={() => dispatch(Actions.basket.removeFromBasket(product.moment))}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => dispatch(Actions.basket.removeFromBasket(product.moment))}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+        <ListItem className={classes.listItem}>
+          <ListItemText primary="Total" />
+          <Typography variant="subtitle1" className={classes.total}>
+            &pound;
+            {(
+              basket.reduce((acc, current) => (acc += current.moment.price), 0) / 100
+            ).toFixed(2)}
+          </Typography>
         </ListItem>
-      ))}
-      <ListItem className={classes.listItem}>
-        <ListItemText primary="Total" />
-        <Typography variant="subtitle1" className={classes.total}>
-          &pound;
-          {(
-            basket.reduce((acc, current) => (acc += current.moment.price), 0) / 100
-          ).toFixed(2)}
-        </Typography>
-      </ListItem>
-    </List>
+      </List>
+    </>
   )
 }
 export default connect(state => ({ basket: state.basket }))(Review)

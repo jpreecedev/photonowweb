@@ -55,6 +55,17 @@ function AddressForm({ handleSubmit }) {
           <Grid item xs={12}>
             <Field
               required
+              id="emailAddress"
+              name="emailAddress"
+              label="Email address"
+              fullWidth
+              autoComplete="email"
+              component={renderTextField}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Field
+              required
               id="address1"
               name="address1"
               label="Address line 1"
@@ -96,8 +107,8 @@ function AddressForm({ handleSubmit }) {
           <Grid item xs={12} sm={6}>
             <Field
               required
-              id="zip"
-              name="zip"
+              id="postalCode"
+              name="postalCode"
               label="Zip / Postal code"
               fullWidth
               autoComplete="billing postal-code"
@@ -137,5 +148,5 @@ function AddressForm({ handleSubmit }) {
 }
 
 export default reduxForm({
-  form: 'AddressForm'
+  form: 'addressForm'
 })(AddressForm)

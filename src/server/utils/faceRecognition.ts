@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk'
 import { Types } from 'mongoose'
 import { getMoment } from '../database/moments'
+import { priceEachMoment } from 'database/basket/utils'
 
 const rekognition = new AWS.Rekognition({ region: process.env.AWS_REGION })
 AWS.config.region = process.env.AWS_REGION
@@ -57,12 +58,14 @@ async function recogniseFromBuffer(image: Buffer) {
             Array.from(matchSet).map(s => getMoment(Types.ObjectId(s.toString())))
           )
 
+          await priceEachMoment(moments)
+
           return resolve(
             moments.map(moment => ({
               momentId: moment._id,
               label: moment.filename,
               url: moment.resizedLocation,
-              price: 499
+              price: moment.amount
             }))
           )
         }

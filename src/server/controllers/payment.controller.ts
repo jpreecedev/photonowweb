@@ -1,56 +1,67 @@
-import { RequestWithUser } from 'global'
 import { Response } from 'express'
+import stripeFactory from 'stripe'
+import { Types } from 'mongoose'
+
+import { create } from '../database/payment'
+import { createOrder } from '../database/basket'
 import { errors } from '../utils'
 import { STRIPE_SECRET_KEY } from '../config'
-import { addOrUpdateStripeCustomer } from '../database/user'
-import { create } from '../database/payment'
-import { getOrder } from '../database/basket/utils'
-import stripeFactory from 'stripe'
+import { getMoments } from 'database/moments'
+import { calculateOrderAmount } from 'database/basket/utils'
 
 const stripe = stripeFactory(STRIPE_SECRET_KEY)
 
-async function findOrCreateStripeCustomer(user, tokenId) {
-  if (user.stripeCustomerId) {
-    const newSource = await stripe.customers.createSource(user.stripeCustomerId, {
-      source: tokenId
-    })
-    const customer = await stripe.customers.update(user.stripeCustomerId, {
-      default_source: newSource.id
-    })
-    return customer
-  }
-
-  return stripe.customers.create({
-    email: user.email,
-    source: tokenId
-  })
-}
-
 async function post(req: RequestWithUser, res: Response) {
   try {
-    const { _id, displayName } = req.user
-    const { tokenId } = req.body
+    const { tokenId, billingDetails, moments } = req.body
+    const {
+      name,
+      email,
+      addressLine1,
+      addressLine2,
+      city,
+      postalCode,
+      state,
+      country
+    } = billingDetails
 
-    const stripeCustomer = await findOrCreateStripeCustomer(req.user, tokenId)
-    await addOrUpdateStripeCustomer(req.user._id, stripeCustomer.id)
+    const momentIds: Types.ObjectId[] = moments.reduce(
+      (acc: Types.ObjectId[], current: IMoment) => {
+        acc.push(current.momentId)
+        return acc
+      },
+      []
+    )
 
-    const order = await getOrder({ customerId: _id })
+    const completeMoments = await getMoments(momentIds)
+
+    const amount = await calculateOrderAmount(completeMoments)
+
+    const newOrder = <IOrder>{
+      moments: momentIds,
+      amount,
+      name,
+      email,
+      addressLine1,
+      addressLine2,
+      city,
+      postalCode,
+      state,
+      country
+    }
+
+    const order = await createOrder(newOrder)
 
     const result = await stripe.charges.create({
-      amount: Math.round(order.amount * 100),
+      amount,
       currency: 'gbp',
-      customer: stripeCustomer.id,
-      source: stripeCustomer.default_source.id,
-      description: `Purchase of precious moments (${displayName})`,
-      order: order._id.toString()
+      description: `Purchase of precious moments (${name})`,
+      source: tokenId
     })
 
-    const momentPaths = order.moments.map(moment => moment.location)
-
     const paymentSaved = await create({
-      customerId: _id,
       orderId: order._id,
-      moments: momentPaths,
+      moments: momentIds,
       amount: order.amount,
       paid: result.paid,
       status: result.status,
@@ -62,8 +73,7 @@ async function post(req: RequestWithUser, res: Response) {
     if (paymentSaved) {
       return res.status(200).json({
         orderId: order._id,
-        customerId: _id,
-        moments: momentPaths,
+        moments: completeMoments.map(moment => moment.location),
         receipt: result.receipt_url
       })
     }

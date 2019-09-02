@@ -1,11 +1,7 @@
 import { Order } from '../schema'
 
-async function createOrder(customerId) {
-  return await new Order({
-    customerId,
-    moments: [],
-    amount: 0
-  }).save()
+async function createOrder(order: IOrder) {
+  return await new Order(order).save()
 }
 
 export { createOrder }

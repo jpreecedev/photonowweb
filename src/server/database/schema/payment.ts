@@ -1,9 +1,8 @@
-import { Schema } from 'mongoose'
+import { model, Model, Schema, Types } from 'mongoose'
 
 const PaymentSchema = new Schema({
-  customerId: { type: Schema.Types.ObjectId, ref: 'User' },
-  orderId: { type: Schema.Types.ObjectId, ref: 'Order' },
-  moments: [{ type: Schema.Types.ObjectId, ref: 'Moment' }],
+  orderId: { type: Types.ObjectId, ref: 'Order' },
+  moments: [{ type: Types.ObjectId, ref: 'Moment' }],
   amount: Number,
   paid: Boolean,
   status: String,
@@ -12,4 +11,6 @@ const PaymentSchema = new Schema({
   purchased: Date
 })
 
-export { PaymentSchema }
+const Payment: Model<IPayment> = model<IPayment>('Payment', PaymentSchema)
+
+export { Payment }
