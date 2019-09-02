@@ -2,8 +2,6 @@ import { Response } from 'express'
 import { errors } from '../utils'
 import {
   getOrderForCustomer,
-  userHasOrder,
-  deleteOrderItem,
   createOrder,
   addMomentToOrder,
   orderHasMomentAdded
@@ -72,22 +70,4 @@ async function put(req: RequestWithUser, res: Response) {
   }
 }
 
-async function deleteItem(req: RequestWithUser, res: Response) {
-  try {
-    const { _id } = req.user
-    const { orderId, momentId } = req.body
-
-    if (!(await userHasOrder(_id, orderId))) {
-      return res.status(500).send({ error: 'User does not have order' })
-    }
-
-    const updatedOrder = await deleteOrderItem(orderId, _id, momentId)
-
-    return res.status(200).send(updatedOrder)
-  } catch (e) {
-    errors.handle(e)
-    return res.status(500).send(e)
-  }
-}
-
-export default { get, post, put, deleteItem }
+export default { get, post, put }
