@@ -1,5 +1,4 @@
 import { Response } from 'express'
-import { addOrUpdate } from '../database/user'
 import { faceRecognition } from '../utils'
 import { errors } from '../utils'
 
@@ -14,11 +13,6 @@ async function post(req: RequestWithFile, res: Response) {
     const { key } = originalFile
 
     const result = await faceRecognition.recognise(originalFile.bucket, key)
-
-    await addOrUpdate({
-      id: req.user.id,
-      selectedPhoto: originalFile.location
-    })
 
     return res.status(200).json(result)
   } catch (e) {

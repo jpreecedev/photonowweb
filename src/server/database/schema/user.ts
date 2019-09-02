@@ -15,8 +15,7 @@ const UserSchema = new Schema({
   firstName: String,
   lastName: String,
   displayName: String,
-  selectedPhoto: String,
-  stripeCustomerId: String
+  selectedPhoto: String
 })
 
 const User: Model<IUser> = model<IUser>('User', UserSchema)

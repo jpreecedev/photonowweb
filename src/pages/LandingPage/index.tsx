@@ -50,7 +50,7 @@ function LandingPage({ ...rest }) {
         <div className={classes.buttonBottom}>
           <Button
             component={Link}
-            to="/sign-in"
+            to="/face"
             variant="contained"
             color="primary"
             size="large"

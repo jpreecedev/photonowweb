@@ -41,7 +41,8 @@ module.exports = () => {
     NODE_ENV: process.env.NODE_ENV || 'development',
     HOST: process.env.HOST || 'http://localhost',
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY || '',
-    SERVER_API_URL: process.env.SERVER_API_URL || ''
+    SERVER_API_URL: process.env.SERVER_API_URL || '',
+    DEFAULT_MOMENT_PRICE: process.env.DEFAULT_MOMENT_PRICE || '399'
   }
 
   // Stringify all values so we can feed into Webpack DefinePlugin

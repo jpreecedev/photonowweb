@@ -88,7 +88,6 @@ declare global {
     lastName?: string
     displayName?: string
     selectedPhoto?: string
-    stripeCustomerId?: string
   }
 
   interface IMoment extends Document {
