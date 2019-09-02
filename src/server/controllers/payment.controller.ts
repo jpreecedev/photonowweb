@@ -71,11 +71,7 @@ async function post(req: RequestWithUser, res: Response) {
     })
 
     if (paymentSaved) {
-      return res.status(200).json({
-        orderId: order._id,
-        moments: completeMoments.map(moment => moment.location),
-        receipt: result.receipt_url
-      })
+      return res.redirect(`/order-confirmation/${order._id}`)
     }
 
     return res.status(500).send({})

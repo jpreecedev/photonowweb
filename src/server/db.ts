@@ -15,8 +15,6 @@
 
 // Moment.deleteMany({}).then((err, res) => console.log(err))
 
-// 5d0f409ed5af3b5f8ea22e5c
-
 // Moment.find({}).exec((err, moments) => {
 //   moments.forEach(u => console.log(u))
 //   process.exit(0)

@@ -82,12 +82,11 @@ const CheckoutForm = ({ stripe, basket, form }) => {
       address_country: billingDetails.country
     })
 
-    const result = await server.postAsync('/payment', {
+    await server.postAsync('/payment', {
       tokenId: token.id,
       billingDetails,
       moments: basket.map(item => item.moment)
     })
-    debugger
   }
 
   return (
