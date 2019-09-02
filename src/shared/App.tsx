@@ -12,8 +12,7 @@ import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
 import Checkout from './components/Checkout'
 import { LoginFailed } from './components/LoginFailed'
-import { Setup } from './components/Setup'
-import { FileUpload } from './components/FileUpload'
+import { Upload } from './components/Upload'
 import { OrderConfirmation } from './components/OrderConfirmation'
 import Face from './components/Face'
 
@@ -50,9 +49,8 @@ function App() {
         <Route path="/face" component={Face} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/profile" exact component={ProfilePage} />
-        <Route path="/setup" exact component={Setup} />
         <Route path="/order-confirmation/:orderId" exact component={OrderConfirmation} />
-        <SecureRoute path="/upload" component={FileUpload} />
+        <SecureRoute path="/upload" component={Upload} />
       </>
     </StripeProvider>
   )

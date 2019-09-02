@@ -19,7 +19,7 @@ router.get(
       return res.redirect('/profile')
     }
 
-    return res.redirect('/setup')
+    return res.redirect('/upload')
   }
 )
 

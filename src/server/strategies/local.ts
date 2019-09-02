@@ -3,10 +3,10 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import { Strategy as LocalStrategy } from 'passport-local'
 import bcrypt from 'bcrypt'
 
-const BCRYPT_SALT_ROUNDS = 12
-
 import { JWT_SECRET, JWT_ISSUER, JWT_AUDIENCE } from '../config'
 import { getUserBy, create } from '../database/user'
+
+const BCRYPT_SALT_ROUNDS = 12
 
 function initialise() {
   const options = {

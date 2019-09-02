@@ -124,8 +124,6 @@ const InjectedCheckoutForm = injectStripe(CheckoutForm)
 function Checkout({ form, basket, history }) {
   const classes = useStyles()
 
-  debugger
-
   return (
     <Elements>
       <Container component="main" maxWidth="md">

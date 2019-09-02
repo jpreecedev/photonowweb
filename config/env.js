@@ -42,7 +42,8 @@ module.exports = () => {
     HOST: process.env.HOST || 'http://localhost',
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY || '',
     SERVER_API_URL: process.env.SERVER_API_URL || '',
-    DEFAULT_MOMENT_PRICE: process.env.DEFAULT_MOMENT_PRICE || '399'
+    DEFAULT_MOMENT_PRICE: process.env.DEFAULT_MOMENT_PRICE || '399',
+    FACE_RECOGNITION_COLLECTION_NAME: process.env.FACE_RECOGNITION_COLLECTION_NAME || ''
   }
 
   // Stringify all values so we can feed into Webpack DefinePlugin
