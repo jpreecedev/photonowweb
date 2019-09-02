@@ -1,20 +1,14 @@
-import { RequestWithOrder } from 'global'
 import { Response } from 'express'
+import { Types } from 'mongoose'
 import { errors } from '../utils'
-import { getOrder, getOrders } from '../database/orders'
+import { getOrder } from '../database/orders'
 
 async function get(req: RequestWithOrder, res: Response) {
   try {
-    const { _id } = req.user
     const { orderId } = req.params
 
-    if (orderId) {
-      const order = await getOrder(_id, orderId)
-      return res.status(200).json(order)
-    }
-
-    const orders = await getOrders(_id)
-    return res.status(200).json(orders)
+    const order = await getOrder(Types.ObjectId(orderId))
+    return res.status(200).json(order)
   } catch (e) {
     errors.handle(e)
 

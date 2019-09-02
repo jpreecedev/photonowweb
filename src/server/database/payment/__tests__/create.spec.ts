@@ -27,7 +27,7 @@ describe('Create payment tests', () => {
     const newPayment = {
       customerId: Types.ObjectId('1cfc2370562b178fdfa1be91'),
       photographerId: Types.ObjectId('1dfd2370562d198fdfa1de91'),
-      moments: ['9ccc2370562b178fdfa1be11'],
+      moments: [Types.ObjectId('9ccc2370562b178fdfa1be11')],
       amount: 600,
       paid: true,
       status: 'succeeded',
@@ -35,6 +35,8 @@ describe('Create payment tests', () => {
       stripeCharge: { cameFromStripe: true },
       purchased: new Date()
     }
+
+    console.log(newPayment)
 
     const paymentSaved = await create(newPayment)
 

@@ -1,7 +1,7 @@
-import { model, Model, Schema, Types } from 'mongoose'
+import { model, Model, Schema } from 'mongoose'
 
 const OrderSchema = new Schema({
-  moments: [{ type: Types.ObjectId, ref: 'Moment' }],
+  moments: [{ type: Schema.Types.ObjectId, ref: 'Moment' }],
   amount: Number,
   name: String,
   email: String,

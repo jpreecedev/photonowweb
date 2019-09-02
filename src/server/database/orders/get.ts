@@ -1,11 +1,8 @@
+import { Types } from 'mongoose'
 import { Order } from '../schema'
 
-async function getOrder(customerId, orderId) {
-  return Order.findOne({ _id: orderId, customerId }).exec()
+async function getOrder(orderId: Types.ObjectId) {
+  return Order.findOne({ _id: orderId }).exec()
 }
 
-async function getOrders(customerId) {
-  return Order.find({ customerId }).exec()
-}
-
-export { getOrder, getOrders }
+export { getOrder }

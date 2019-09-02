@@ -18,13 +18,35 @@ describe('Create order tests', () => {
   })
 
   test('should create an order', async () => {
-    const customerId = Types.ObjectId('1cfc2370562b178fdfa1be91')
+    const newOrder = <IOrder>{
+      moments: [
+        Types.ObjectId('1aaa9190969b198adaa1ba91'),
+        Types.ObjectId('4bcc2370562b178fdfa1be11')
+      ],
+      amount: 1197,
+      name: 'Test Customer',
+      email: 'test@email.com',
+      addressLine1: '1 Test Street',
+      addressLine2: 'Test District',
+      city: 'Test City',
+      postalCode: 'Test Postal Code',
+      state: 'Test State',
+      country: 'Test Country'
+    }
 
-    const order = await createOrder(customerId)
+    const order = await createOrder(newOrder)
 
-    expect(order.customerId.toString()).toEqual(customerId.toString())
-    expect(order.amount).toEqual(0)
+    expect(order).toBeDefined()
     expect(order.moments).not.toBeUndefined()
-    expect(order.moments.length).toEqual(0)
+    expect(order.moments.length).toEqual(2)
+    expect(order.amount).toEqual(1197)
+    expect(order.name).toEqual(newOrder.name)
+    expect(order.email).toEqual(newOrder.email)
+    expect(order.addressLine1).toEqual(newOrder.addressLine1)
+    expect(order.addressLine2).toEqual(newOrder.addressLine2)
+    expect(order.city).toEqual(newOrder.city)
+    expect(order.postalCode).toEqual(newOrder.postalCode)
+    expect(order.state).toEqual(newOrder.state)
+    expect(order.country).toEqual(newOrder.country)
   })
 })

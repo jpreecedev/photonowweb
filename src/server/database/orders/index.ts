@@ -1,3 +1,3 @@
-import { getOrder, getOrders } from './get'
+import { getOrder } from './get'
 
-export { getOrder, getOrders }
+export { getOrder }

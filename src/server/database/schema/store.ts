@@ -1,7 +1,7 @@
-import { model, Model, Schema, Types } from 'mongoose'
+import { model, Model, Schema } from 'mongoose'
 
 const StoreSchema = new Schema({
-  photographerId: { type: Types.ObjectId, ref: 'User' },
+  photographerId: { type: Schema.Types.ObjectId, ref: 'User' },
   singleImagePrice: Number
 })
 
