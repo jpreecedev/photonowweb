@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const CheckoutForm = ({ stripe, basket, form }) => {
+const CheckoutForm = ({ stripe, basket, form, history }) => {
   const classes = useStyles()
 
   const handleNext = async () => {
@@ -82,11 +82,16 @@ const CheckoutForm = ({ stripe, basket, form }) => {
       address_country: billingDetails.country
     })
 
-    await server.postAsync('/payment', {
+    const { success, redirectUrl } = await server.postAsync('/payment', {
       tokenId: token.id,
       billingDetails,
       moments: basket.map(item => item.moment)
     })
+
+    if (success) {
+      history.push(redirectUrl)
+      return
+    }
   }
 
   return (
@@ -116,15 +121,17 @@ const CheckoutForm = ({ stripe, basket, form }) => {
 
 const InjectedCheckoutForm = injectStripe(CheckoutForm)
 
-function Checkout({ form, basket }) {
+function Checkout({ form, basket, history }) {
   const classes = useStyles()
+
+  debugger
 
   return (
     <Elements>
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <main className={classes.layout}>
-          <InjectedCheckoutForm form={form} basket={basket} />
+          <InjectedCheckoutForm form={form} basket={basket} history={history} />
         </main>
       </Container>
     </Elements>

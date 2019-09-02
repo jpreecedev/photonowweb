@@ -71,7 +71,10 @@ async function post(req: RequestWithUser, res: Response) {
     })
 
     if (paymentSaved) {
-      return res.redirect(`/order-confirmation/${order._id}`)
+      return res.status(200).json({
+        success: true,
+        redirectUrl: `/order-confirmation/${order._id}`
+      })
     }
 
     return res.status(500).send({})
