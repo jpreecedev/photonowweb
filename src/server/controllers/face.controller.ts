@@ -20,7 +20,7 @@ async function post(req: RequestWithFile, res: Response) {
       selectedPhoto: originalFile.location
     })
 
-    return res.sendStatus(200)
+    return res.status(200).json(result)
   } catch (e) {
     errors.handle(e)
     return res.status(500).send(e)

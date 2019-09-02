@@ -117,11 +117,6 @@ declare global {
     country: string
   }
 
-  interface IStore extends Document {
-    photographerId: Types.ObjectId
-    singleImagePrice: number
-  }
-
   interface IEnv {
     HOST: string
     PORT

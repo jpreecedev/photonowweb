@@ -1,4 +1,4 @@
-// import { User, Moment, Store, Order } from './database/schema'
+// import { User, Moment, Order } from './database/schema'
 
 // import mongoose from 'mongoose'
 // const { Types } = mongoose
@@ -46,20 +46,6 @@
 //   console.log(users)
 //   process.exit(0)
 // })
-
-// Store.find({}).exec((err, store) => {
-//   console.log(store)
-//   process.exit(0)
-// })
-
-// Store.updateOne(
-//   { photographerId: Types.ObjectId('5cfc2370562b178fdfa1be93') },
-//   { singleImagePrice: 5.99 },
-//   {
-//     upsert: true,
-//     setDefaultsOnInsert: true
-//   }
-// ).exec()
 
 // User.findOne({
 //   id: '2038428602910050'

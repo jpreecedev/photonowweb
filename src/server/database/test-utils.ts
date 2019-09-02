@@ -19,11 +19,6 @@ function sanitizeData(testData) {
       moment._photographerId = Types.ObjectId(moment._photographerId)
     })
   }
-  if (testData.stores && testData.stores.length) {
-    testData.stores.forEach(store => {
-      store.photographerId = Types.ObjectId(store.photographerId)
-    })
-  }
   if (testData.payments && testData.payments.length) {
     testData.payments.forEach(payment => {
       payment._id = Types.ObjectId(payment._id)
