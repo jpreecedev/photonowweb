@@ -30,10 +30,12 @@ describe('Get order tests', () => {
       Types.ObjectId('9ccc2370562b178fdfa1be11'),
       Types.ObjectId('4ccc2370562b178fdfa1be11')
     ]
+    const defaultAmount = Number.parseInt(process.env.DEFAULT_MOMENT_PRICE)
+
     const moments = await getMoments(momentIds)
 
-    const amount = await calculateOrderAmount(moments)
+    const amount = calculateOrderAmount(moments)
 
-    expect(amount).toEqual(524)
+    expect(amount).toEqual(defaultAmount * momentIds.length)
   })
 })

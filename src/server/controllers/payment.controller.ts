@@ -35,7 +35,7 @@ async function post(req: RequestWithUser, res: Response) {
 
     const completeMoments = await getMoments(momentIds)
 
-    const amount = await calculateOrderAmount(completeMoments)
+    const amount = calculateOrderAmount(completeMoments)
 
     const newOrder = <IOrder>{
       moments: momentIds,

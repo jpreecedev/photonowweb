@@ -58,7 +58,7 @@ async function recogniseFromBuffer(image: Buffer) {
             Array.from(matchSet).map(s => getMoment(Types.ObjectId(s.toString())))
           )
 
-          await priceEachMoment(moments)
+          priceEachMoment(moments)
 
           return resolve(
             moments.map(moment => ({
