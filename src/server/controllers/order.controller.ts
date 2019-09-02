@@ -1,7 +1,7 @@
 import { Response } from 'express'
 import { Types } from 'mongoose'
 import { errors } from '../utils'
-import { getOrder } from '../database/orders'
+import { getOrder } from '../database/order'
 
 async function get(req: RequestWithOrder, res: Response) {
   try {
